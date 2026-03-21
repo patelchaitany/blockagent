@@ -2,11 +2,19 @@ FROM node:20-slim
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci --omit=dev
+RUN apt-get update && apt-get install -y python3 python3-pip --no-install-recommends \
+    && pip3 install --break-system-packages pandas numpy \
+    && rm -rf /var/lib/apt/lists/*
 
-COPY dist/ ./dist/
+COPY package*.json ./
+RUN npm ci
+
+COPY tsconfig.json ./
 COPY agent.json ./
+COPY src/ ./src/
+COPY contracts/ ./contracts/
+
+RUN npm run build
 
 ENV NODE_ENV=production
 
