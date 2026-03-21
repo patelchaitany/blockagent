@@ -240,10 +240,25 @@ Other AI agents can discover and pay BlockAgent for analysis. End users use the 
 2. Set `DELEGATION_CONTRACT`, `WALLET_PRIVATE_KEY` (agent session key), and `UNISWAP_API_KEY` in `.env`
 3. Run analysis — the agent will execute validated trades through the contract
 
+### Live Demo
+
+The agent is deployed at:
+
+**https://blockagent-production.up.railway.app**
+
+```bash
+# Health check
+curl https://blockagent-production.up.railway.app/health
+
+# Demo analysis (returns sample response showing exact output format)
+curl -X POST https://blockagent-production.up.railway.app/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"wallet": "0x3c7350E31bfB6bbEc87d7642cBF2AbB7bBDf3d7d", "network": "mainnet"}'
+```
+
 ### Docker
 
 ```bash
-npm run build
 docker build -t blockagent .
 docker run -p 3000:3000 --env-file .env blockagent
 ```

@@ -64,5 +64,6 @@
       "Inference is private but the portfolio data read from chain is public"
     ]
   },
-  "repo": "https://github.com/patelchaitany/blockagent"
+  "repo": "https://github.com/patelchaitany/blockagent",
+  "liveDemo": "https://blockagent-production.up.railway.app"
 }
