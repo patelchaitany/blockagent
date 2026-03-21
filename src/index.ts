@@ -22,15 +22,16 @@ function sendJson(res: ServerResponse, status: number, body: unknown) {
 const server = createServer(async (req, res) => {
   const url = new URL(req.url || "/", `http://localhost:${config.server.port}`);
 
-  // Health check
   if (url.pathname === "/" && req.method === "GET") {
     sendJson(res, 200, {
       agent: "BlockAgent",
-      version: "1.0.0",
+      version: "2.0.0",
       description:
-        "Private DeFi Advisory Agent — confidential portfolio analysis via Venice, real swaps via Uniswap",
+        "Private DeFi Advisory Agent — agentic portfolio analysis with live market data, Python statistical analysis, and zero data retention via Venice AI.",
+      mode: "analysis-only (no trade execution)",
       endpoints: {
-        "POST /analyze": "Analyze a wallet portfolio (params: wallet, network, autoExecute)",
+        "POST /analyze": "Analyze a wallet portfolio (params: wallet, network)",
+        "POST /analyze/paid": "Paid analysis via x402 (1 USDC)",
         "GET /health": "Health check",
       },
     });
@@ -42,14 +43,12 @@ const server = createServer(async (req, res) => {
     return;
   }
 
-  // Main analysis endpoint
   if (url.pathname === "/analyze" && req.method === "POST") {
     try {
       const body = await readBody(req);
       const params = JSON.parse(body) as {
         wallet: string;
         network?: "sepolia" | "mainnet";
-        autoExecute?: boolean;
       };
 
       if (!params.wallet) {
@@ -65,18 +64,18 @@ const server = createServer(async (req, res) => {
       console.log(`\n${"=".repeat(60)}`);
       console.log(`New analysis request: ${params.wallet}`);
       console.log(`Network: ${params.network || "sepolia"}`);
-      console.log(`Auto-execute: ${params.autoExecute || false}`);
+      console.log(`Mode: analysis-only (no trades)`);
       console.log("=".repeat(60));
 
       const result = await runAnalysis(
         params.wallet as Address,
-        params.network || "sepolia",
-        params.autoExecute || false
+        params.network || "sepolia"
       );
 
       sendJson(res, 200, {
         success: true,
         privacy: "Analysis performed via Venice AI with zero data retention",
+        mode: "analysis-only",
         result,
       });
     } catch (error) {
@@ -87,7 +86,6 @@ const server = createServer(async (req, res) => {
     return;
   }
 
-  // x402 payment-required endpoint (for paid tier)
   if (url.pathname === "/analyze/paid" && req.method === "POST") {
     const paymentHeader = req.headers["x-payment"] || req.headers["authorization"];
 
@@ -108,19 +106,17 @@ const server = createServer(async (req, res) => {
           chain: "Base",
           token: "USDC",
           description:
-            "Pay 1 USDC on Base to receive a private portfolio analysis",
+            "Pay 1 USDC on Base to receive a private portfolio analysis with statistical market data",
         })
       );
       return;
     }
 
-    // With payment header present, proceed with analysis
     try {
       const body = await readBody(req);
       const params = JSON.parse(body) as {
         wallet: string;
         network?: "sepolia" | "mainnet";
-        autoExecute?: boolean;
       };
 
       if (!params.wallet) {
@@ -130,14 +126,14 @@ const server = createServer(async (req, res) => {
 
       const result = await runAnalysis(
         params.wallet as Address,
-        params.network || "sepolia",
-        params.autoExecute || false
+        params.network || "sepolia"
       );
 
       sendJson(res, 200, {
         success: true,
         privacy: "Analysis performed via Venice AI with zero data retention",
         paid: true,
+        mode: "analysis-only",
         result,
       });
     } catch (error) {
@@ -152,17 +148,19 @@ const server = createServer(async (req, res) => {
 
 server.listen(config.server.port, () => {
   console.log(`
-╔══════════════════════════════════════════════════════════╗
-║           BlockAgent — Private DeFi Advisor             ║
-║                                                         ║
-║  Venice AI:    Private inference (zero data retention)   ║
-║  Uniswap:     Real token swaps                          ║
-║  Chain:        Base                                      ║
-║  Protocol:     x402 payments                            ║
-║                                                         ║
-║  Server:       http://localhost:${String(config.server.port).padEnd(25)}║
-║  Analyze:      POST /analyze                            ║
-║  Paid tier:    POST /analyze/paid                       ║
-╚══════════════════════════════════════════════════════════╝
+╔═══════════════════════════════════════════════════════════╗
+║        BlockAgent — Agentic DeFi Advisor                  ║
+║                                                           ║
+║  AI:         Venice / Groq (agentic tool-calling loop)    ║
+║  Prices:     CoinGecko (live)                             ║
+║  Analysis:   Python (pandas + numpy)                      ║
+║  Chain:      Base                                         ║
+║  Mode:       Analysis only (no trade execution)           ║
+║  Protocol:   x402 payments                                ║
+║                                                           ║
+║  Server:     http://localhost:${String(config.server.port).padEnd(28)}║
+║  Analyze:    POST /analyze                                ║
+║  Paid tier:  POST /analyze/paid                           ║
+╚═══════════════════════════════════════════════════════════╝
   `);
 });

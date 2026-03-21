@@ -356,16 +356,16 @@ docker run -p 3000:3000 --env-file .env blockagent
 
 ## Target Tracks
 
-| Track | Sponsor | Prize Pool |
-|-------|---------|-----------|
-| Private Agents, Trusted Actions | Venice | $11,500 |
-| Best Use of EigenCompute | EigenCloud | $5,000 |
-| Agentic Finance (Uniswap API) | Uniswap | $5,000 |
-| Agent Services on Base | Base | $5,000 |
-| Let the Agent Cook | Protocol Labs | $4,000 |
-| Agents With Receipts — ERC-8004 | Protocol Labs | $4,000 |
-| Synthesis Open Track | Community | $28,134 |
-| Status Network Gasless | Status | $50 |
+| Track | Sponsor |
+|-------|---------|
+| Private Agents, Trusted Actions | Venice |
+| Best Use of EigenCompute | EigenCloud |
+| Agentic Finance (Uniswap API) | Uniswap |
+| Agent Services on Base | Base |
+| Let the Agent Cook | Protocol Labs |
+| Agents With Receipts — ERC-8004 | Protocol Labs |
+| Synthesis Open Track | Community |
+| Status Network Gasless | Status |
 
 ## Tech Stack
 
