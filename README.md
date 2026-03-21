@@ -1,285 +1,188 @@
 # BlockAgent — Private DeFi Advisory Agent
 
-A self-sovereign AI agent that privately analyzes DeFi portfolios and executes real token swaps, with verifiable execution guarantees.
+An agentic AI that privately analyzes DeFi portfolios using live market data and Python-based statistical analysis, with optional trade execution via on-chain spending limits.
 
 ## The Problem
 
 Every time you ask an AI to analyze your crypto portfolio, your positions are logged by the inference provider. Traders, competitors, and front-runners can exploit this data. A $2M ETH holder asking "should I sell?" on ChatGPT just broadcast their intent to OpenAI's servers.
 
+A second problem: when AI agents *can* execute trades, they hold raw private keys in `.env` files. One hallucination, one prompt injection, one dependency vulnerability — and the wallet is drained.
+
 ## The Solution
 
-BlockAgent uses **Venice AI** for zero-retention inference — your portfolio data is analyzed and immediately forgotten. No logs. No storage. No training. Combined with **Uniswap** for real swap execution and **EigenCompute TEE** for verifiable computation, this is the first DeFi advisor that keeps your strategy confidential.
+BlockAgent separates intelligence from authority:
+
+- **Private intelligence:** Venice AI analyzes your portfolio with zero data retention. Your positions are never stored, logged, or used for training.
+- **Statistical grounding:** The AI writes and executes Python code (pandas/numpy) to compute moving averages, volatility, and trends from live CoinGecko data — not guessing from training data.
+- **Safe execution:** If trade execution is enabled, it goes through a `ScopedDelegation` smart contract (inspired by ERC-7715). The agent gets a session key with zero standalone value. All authority is enforced on-chain: per-transaction caps, daily limits, token whitelists, expiry, instant revocation.
 
 ---
 
-## System Architecture
+## Architecture
 
-### High-Level Overview
-
-```
-┌──────────────────────────────────────────────────────────────────────────┐
-│                          TRUST BOUNDARY (TEE)                           │
-│  ┌────────────────────────────────────────────────────────────────────┐  │
-│  │                                                                    │  │
-│  │   ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐   │  │
-│  │   │ Discover │───▶│ Analyze  │───▶│Recommend │───▶│ Execute  │   │  │
-│  │   │          │    │          │    │          │    │          │   │  │
-│  │   │ On-chain │    │ Venice   │    │  Parse   │    │ Uniswap  │   │  │
-│  │   │ Reader   │    │ Private  │    │  JSON    │    │ Swaps    │   │  │
-│  │   └────┬─────┘    └────┬─────┘    └──────────┘    └────┬─────┘   │  │
-│  │        │               │                               │         │  │
-│  │        ▼               ▼                               ▼         │  │
-│  │   ┌──────────────────────────────────────────────────────────┐   │  │
-│  │   │                    Report + Log                          │   │  │
-│  │   │            agent_log.json (audit trail)                 │   │  │
-│  │   └──────────────────────────────────────────────────────────┘   │  │
-│  │                                                                    │  │
-│  │                  BlockAgent (Node.js / TypeScript)                 │  │
-│  └────────────────────────────────────────────────────────────────────┘  │
-│                                                                          │
-│                EigenCompute TEE — cryptographic proof of execution        │
-└──────────────────────────────────────────────────────────────────────────┘
-```
-
-### Data Flow & Privacy Boundaries
+### Analysis Flow (Default — No Keys Required)
 
 ```
-                    ┌─────────────────┐
-                    │  User / Agent   │
-                    │                 │
-                    │  "Analyze my    │
-                    │   portfolio"    │
-                    └────────┬────────┘
-                             │
-                   POST /analyze + x402 payment
-                             │
-                             ▼
-              ┌──────────────────────────────┐
-              │     HTTP Server (index.ts)    │
-              │                              │
-              │  • Validate request          │
-              │  • Check x402 payment        │
-              │  • Route to agent            │
-              └──────────────┬───────────────┘
-                             │
-         ┌───────────────────┼───────────────────┐
-         │                   │                   │
-         ▼                   ▼                   ▼
-┌─────────────────┐ ┌────────────────┐ ┌─────────────────┐
-│   BASE CHAIN    │ │   VENICE AI    │ │  UNISWAP API    │
-│   (public)      │ │   (private)    │ │  (execution)    │
-│                 │ │                │ │                 │
-│ • ETH balance   │ │ • Zero data    │ │ • Swap quotes   │
-│ • ERC-20 tokens │ │   retention    │ │ • Route calc    │
-│ • viem multicall│ │ • No logging   │ │ • Tx calldata   │
-│                 │ │ • Ephemeral    │ │ • Sign + send   │
-│  portfolio.ts   │ │  venice.ts     │ │  uniswap.ts     │
-└─────────────────┘ └────────────────┘ └─────────────────┘
+User
+ │
+ │  npm run analyze 0xWallet sepolia
+ │  (or POST /analyze)
+ ▼
+┌─────────────────────────────────────────────────┐
+│  BlockAgent                                      │
+│                                                  │
+│  1. DISCOVER                                     │
+│     viem multicall → ETH + ERC-20 balances       │
+│     CoinGecko API → live prices + 24h change     │
+│                                                  │
+│  2. ANALYZE (agentic loop, up to 10 iterations)  │
+│     LLM decides which tools to call:             │
+│     ├─ fetch_market_history → price CSV          │
+│     ├─ execute_python → pandas/numpy stats       │
+│     └─ submit_analysis → structured JSON         │
+│                                                  │
+│  3. VALIDATE (deterministic safety layer)        │
+│     riskScore [1-10], percentage [0-100]          │
+│     max 10% per trade recommendation             │
+│                                                  │
+│  4. REPORT                                       │
+│     Return JSON + log to agent_log.json          │
+└─────────────────────────────────────────────────┘
 
-         │                   │                   │
-         └───────────────────┼───────────────────┘
-                             │
-                             ▼
-              ┌──────────────────────────────┐
-              │   Structured JSON Response   │
-              │                              │
-              │  • Risk score (1-10)         │
-              │  • Yield opportunities       │
-              │  • Trade recommendations     │
-              │  • Executed tx hashes        │
-              │  • Audit log entry           │
-              └──────────────────────────────┘
+No private keys. No trade execution. Read-only.
 ```
 
-### Component Architecture
+### Delegated Execution Flow (Optional)
 
 ```
-blockagent/
-│
-├── src/
-│   ├── config.ts          ─── Environment & API key management
-│   │                          Supports Venice + any OpenAI-compatible fallback
-│   │
-│   ├── portfolio.ts       ─── On-chain Data Layer
-│   │                          viem multicall → ETH + ERC-20 balances
-│   │                          Token price mapping → USD values
-│   │                          Allocation % calculator
-│   │
-│   ├── venice.ts          ─── Private Inference Layer
-│   │                          OpenAI-compatible chat completions
-│   │                          System prompt: DeFi analyst persona
-│   │                          Structured JSON output parsing
-│   │                          Swappable: Venice / Groq / OpenAI
-│   │
-│   ├── uniswap.ts         ─── Swap Execution Layer
-│   │                          Quote API → best route + price
-│   │                          Sign with wallet private key
-│   │                          Broadcast → Base chain
-│   │                          Return tx hash + explorer link
-│   │
-│   ├── agent.ts           ─── Orchestration Layer
-│   │                          discover → analyze → recommend → execute → report
-│   │                          Coordinates all other modules
-│   │                          Manages the agent decision loop
-│   │
-│   ├── logger.ts          ─── Audit Layer
-│   │                          Append-only agent_log.json
-│   │                          Every step: inputs, outputs, decisions
-│   │                          Protocol Labs compliance
-│   │
-│   ├── index.ts           ─── HTTP Server
-│   │                          GET  /health
-│   │                          POST /analyze        (free tier)
-│   │                          POST /analyze/paid   (x402 gated)
-│   │
-│   ├── cli.ts             ─── CLI Interface
-│   │                          npm run analyze <addr> <network> [--execute]
-│   │
-│   └── deploy-status.ts   ─── Status Network Deployer
-│                              Gasless contract deployment (gasPrice: 0)
-│
-├── contracts/
-│   └── AgentRegistry.sol  ─── On-chain Agent Identity
-│                              register() + attest() + events
-│
-├── agent.json             ─── Agent Manifest (ERC-8004 / Protocol Labs)
-├── Dockerfile             ─── EigenCompute TEE packaging
-└── agent_log.json         ─── Runtime audit trail (auto-generated)
+User Wallet                 ScopedDelegation Contract          Agent Session Key
+    │                              │                                │
+    │  1. Deploy contract with:    │                                │
+    │     - agent address          │                                │
+    │     - max $100/tx            │                                │
+    │     - $500/day limit         │                                │
+    │     - USDC + WETH only       │                                │
+    │     - expires in 7 days      │                                │
+    ├─────────────────────────────▶│                                │
+    │                              │                                │
+    │  2. approve(token, contract) │                                │
+    ├─────────────────────────────▶│                                │
+    │                              │                                │
+    │                              │  3. Agent analyzes portfolio   │
+    │                              │     validates LLM output       │
+    │                              │     calls executeAction()      │
+    │                              │◀────────────────────────────────┤
+    │                              │                                │
+    │                              │  4. Contract checks:           │
+    │                              │     ✓ caller is delegate?      │
+    │                              │     ✓ token whitelisted?       │
+    │                              │     ✓ target whitelisted?      │
+    │                              │     ✓ amount ≤ maxPerTx?       │
+    │                              │     ✓ daily limit not exceeded? │
+    │                              │     ✓ not expired?             │
+    │                              │                                │
+    │                              │  5. transferFrom(user, target) │
+    │                              ├───────────────────────────────▶│
+    │                              │                                │
+    │  User can revoke() anytime   │                                │
+    ├─────────────────────────────▶│                                │
 ```
 
-### Privacy Architecture
+The agent's session key has zero value on its own. If compromised, the attacker can only spend within the contract's limits until the user calls `revoke()`.
+
+---
+
+## Security Model
+
+### How Each Flaw Is Addressed
+
+| Flaw | Risk | Mitigation |
+|------|------|-----------|
+| **Private key in .env** | Wallet drain on compromise | No private key required for analysis. Delegated mode uses a session key with zero standalone value — all authority enforced by ScopedDelegation contract |
+| **Uniswap API leaks intent** | Front-running, MEV extraction | Analysis mode never calls Uniswap. If delegated execution is enabled, routing via Uniswap API does expose intent — this is documented as a known limitation |
+| **LLM hallucination** | Bad trade, malformed JSON | Deterministic `validateAnalysis()` layer: clamps riskScore to [1-10], caps trade percentage at 10%, validates action types. On-chain contract enforces spending limits as a second barrier |
+| **x402 self-payment** | Confusing trust model | x402 is for agent-to-agent commerce only. When BlockAgent runs as a public service, other agents pay per-request. Users running locally use the free CLI or `/analyze` endpoint |
+
+### Defense in Depth
 
 ```
-┌────────────────────────────────────────────────────────────────┐
-│                     PRIVACY LAYERS                              │
-│                                                                │
-│  Layer 1: INFERENCE                                            │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  Venice AI — Private Tier                                │  │
-│  │                                                          │  │
-│  │  • Prompts are NOT stored, logged, or used for training  │  │
-│  │  • Data exists only during request lifecycle             │  │
-│  │  • No third party observes which portfolios are analyzed │  │
-│  │  • Model: Llama 3.3 70B (open-source weights)           │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                                                                │
-│  Layer 2: EXECUTION                                            │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  EigenCompute TEE (Trusted Execution Environment)        │  │
-│  │                                                          │  │
-│  │  • Code runs in hardware-isolated enclave                │  │
-│  │  • Cryptographic attestation of correct execution        │  │
-│  │  • Even the host operator cannot see the data            │  │
-│  │  • Docker container → verifiable compute proof           │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                                                                │
-│  Layer 3: TRANSPORT                                            │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  x402 Payment Protocol                                   │  │
-│  │                                                          │  │
-│  │  • No accounts, no signup, no identity required          │  │
-│  │  • Pay-per-request with USDC                             │  │
-│  │  • Machine-to-machine commerce                           │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                                                                │
-│  Layer 4: IDENTITY                                             │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  ERC-8004 On-chain Agent Identity                        │  │
-│  │                                                          │  │
-│  │  • Verifiable agent registration on Base                 │  │
-│  │  • Every action attested on-chain                        │  │
-│  │  • Auditable decision trail via agent_log.json           │  │
-│  └──────────────────────────────────────────────────────────┘  │
-└────────────────────────────────────────────────────────────────┘
+LLM Output
+    │
+    ▼
+[Validation Layer - TypeScript]
+    riskScore ∈ [1-10]
+    action ∈ {buy, sell, hold}
+    percentage ∈ [0-100]
+    max 10% per trade
+    │
+    ▼
+[ScopedDelegation - Solidity]
+    maxAmountPerTx
+    dailyLimit
+    allowedTokens[]
+    allowedTargets[]
+    expiryTimestamp
+    revoke()
+    │
+    ▼
+Execution (or rejection)
 ```
 
-### Agent Decision Loop
+Two independent safety layers. The TypeScript layer catches hallucinations. The Solidity layer enforces spending limits on-chain even if the TypeScript layer is bypassed.
+
+### Python Execution Sandbox
+
+The LLM writes Python code for statistical analysis. That code runs in a sandboxed subprocess:
+
+- **Stripped environment:** The subprocess gets only `PATH`, `HOME=/tmp`, and Python encoding vars. No access to `WALLET_PRIVATE_KEY`, `VENICE_API_KEY`, or any `.env` variables.
+- **Working directory:** Isolated `/tmp` directory, not the project root.
+- **Blocked patterns:** Code containing `os.environ`, `subprocess`, `open('...`)`, `__import__`, or references to secret variable names is rejected before execution.
+- **Timeout:** 30 seconds max, output capped at 50KB.
+
+This prevents the LLM from writing code that exfiltrates the session key or reads sensitive files on the host.
+
+### Why EigenCompute (TEE) Still Matters
+
+With ScopedDelegation enforcing limits on-chain, the session key alone has limited blast radius. But a compromised *host operator* could tamper with the TypeScript validation layer — disabling the 10% cap or rewriting the trade parameters before they reach the contract.
+
+Running BlockAgent inside an EigenCompute TEE closes this gap:
 
 ```
-    ┌─────────┐
-    │  START  │
-    └────┬────┘
-         │
-         ▼
-    ┌─────────┐     viem multicall        ┌──────────────┐
-    │DISCOVER │────────────────────────── │  Base Chain   │
-    │         │     ETH + ERC-20 balances  │  (Sepolia /  │
-    └────┬────┘                            │   Mainnet)   │
-         │                                 └──────────────┘
-         │  portfolio snapshot
-         ▼
-    ┌─────────┐     chat/completions       ┌──────────────┐
-    │ ANALYZE │────────────────────────── │  Venice AI   │
-    │         │     structured JSON        │  (private,   │
-    └────┬────┘                            │   ephemeral) │
-         │                                 └──────────────┘
-         │  risk score + recommendations
-         ▼
-    ┌──────────┐
-    │RECOMMEND │    Parse JSON response
-    │          │    Extract: buy/sell/hold actions
-    └────┬─────┘    with token, %, rationale
-         │
-         │  if autoExecute = true
-         ▼
-    ┌─────────┐     quote → sign → send    ┌──────────────┐
-    │ EXECUTE │────────────────────────── │ Uniswap API  │
-    │         │     tx hash + receipt      │ + Base Chain  │
-    └────┬────┘                            └──────────────┘
-         │
-         │  results + tx hashes
-         ▼
-    ┌─────────┐     append to file         ┌──────────────┐
-    │ REPORT  │────────────────────────── │agent_log.json│
-    │         │     audit trail            │ (append-only)│
-    └────┬────┘                            └──────────────┘
-         │
-         ▼
-    ┌─────────┐
-    │   END   │    Return JSON to caller
-    └─────────┘
+┌──────────────── TEE (EigenCompute) ────────────────┐
+│                                                     │
+│  TypeScript validation layer (tamper-proof)         │
+│  Python sandbox (isolated from host secrets)        │
+│  Session key (sealed inside enclave)                │
+│                                                     │
+│  Attestation: cryptographic proof that this exact   │
+│  code version ran unmodified                        │
+│                                                     │
+└───────────────────────┬─────────────────────────────┘
+                        │
+                        ▼
+              ScopedDelegation Contract
+              (on-chain enforcement)
 ```
 
-### Integration Map
+The TEE guarantees that the validation layer was not tampered with, and the ScopedDelegation contract guarantees that even a compromised TEE can only spend within the user's configured limits. Neither trust assumption is sufficient alone — together they provide defense in depth.
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        BlockAgent                                │
-│                                                                 │
-│                    ┌──────────────┐                              │
-│                    │  agent.ts    │                              │
-│                    │ Orchestrator │                              │
-│                    └──────┬───────┘                              │
-│           ┌───────────────┼───────────────┐                     │
-│           │               │               │                     │
-│    ┌──────▼──────┐ ┌──────▼──────┐ ┌──────▼──────┐             │
-│    │ portfolio.ts│ │  venice.ts  │ │ uniswap.ts  │             │
-│    └──────┬──────┘ └──────┬──────┘ └──────┬──────┘             │
-└───────────┼───────────────┼───────────────┼─────────────────────┘
-            │               │               │
-     ┌──────▼──────┐ ┌──────▼──────┐ ┌──────▼──────┐
-     │    viem     │ │  Venice AI  │ │Uniswap Dev  │
-     │  multicall  │ │    API      │ │Platform API │
-     └──────┬──────┘ └─────────────┘ └──────┬──────┘
-            │                               │
-     ┌──────▼───────────────────────────────▼──────┐
-     │              Base Chain                      │
-     │         (Sepolia / Mainnet)                  │
-     │                                              │
-     │  • Token balances    • Swap transactions     │
-     │  • ETH balance       • ERC-8004 identity     │
-     └──────────────────────────────────────────────┘
+---
 
-  SIDE INTEGRATIONS:
+## Limitations and Transparency
 
-     ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-     │   Status     │  │ EigenCompute │  │    x402      │
-     │   Network    │  │    TEE       │  │  Payments    │
-     │              │  │              │  │              │
-     │  Gasless     │  │  Verifiable  │  │  Pay-per-    │
-     │  deployment  │  │  execution   │  │  request     │
-     └──────────────┘  └──────────────┘  └──────────────┘
-```
+This section exists because honesty matters more than marketing.
+
+1. **Inference is private, but data reads are public.** The portfolio data comes from public blockchain state. Anyone can see what tokens a wallet holds. Venice AI ensures the *analysis* of that data is private.
+
+2. **CoinGecko queries are not private.** When the agent fetches price history, CoinGecko sees which tokens are queried (but not which wallet is being analyzed).
+
+3. **Uniswap routing exposes trade intent.** If delegated execution is enabled, the Uniswap API receives the swap parameters before execution. This is a known trade-off — private inference does not mean private execution.
+
+4. **LLM statistical analysis is not financial advice.** The Python code the AI writes computes real metrics from real data, but the interpretation and recommendations come from a language model. Use at your own risk.
+
+5. **Token prices use CoinGecko free tier.** Rate limits apply. Falls back to hardcoded prices if CoinGecko is unavailable.
+
+6. **Python sandbox is best-effort, not OS-level.** The sandbox strips env vars and blocks dangerous patterns via regex, but does not use containers or seccomp. For production deployments, run the agent inside a TEE (EigenCompute) or Docker with `--read-only` and no volume mounts to the project directory.
 
 ---
 
@@ -288,37 +191,33 @@ blockagent/
 ### Prerequisites
 
 - Node.js 20+
-- API keys: Venice AI or Groq (free), Uniswap Developer Platform (free)
-- A wallet private key (for signing swap transactions)
+- Python 3 with pandas and numpy (`pip install pandas numpy`)
+- An LLM API key: Venice AI or Groq (free)
 
 ### Setup
 
 ```bash
-git clone https://github.com/user/blockagent
+git clone https://github.com/patelchaitany/blockagent
 cd blockagent
 npm install
+pip install -r requirements.txt
 cp .env.example .env
-# Edit .env with your API keys
+# Edit .env with your LLM API key
 ```
 
-### Run the CLI
+### Run Analysis (No Private Key Needed)
 
 ```bash
-# Analyze a wallet (analysis only, no trades)
-npm run analyze 0xYourWalletAddress sepolia
-
-# Analyze and auto-execute recommended trades
-npm run analyze 0xYourWalletAddress sepolia --execute
+# Analyze any wallet — reads public chain data only
+npm run analyze 0xAnyWalletAddress sepolia
+npm run analyze 0xAnyWalletAddress mainnet
 ```
 
 ### Run as a Server
 
 ```bash
-# Development
-npm run dev
-
-# Production
-npm run build && npm start
+npm run dev    # development
+npm run build && npm start   # production
 ```
 
 ### API Endpoints
@@ -331,28 +230,25 @@ curl -X POST http://localhost:3000/analyze \
   -d '{"wallet": "0xYourAddress", "network": "sepolia"}'
 ```
 
-**POST /analyze/paid** — Paid tier with x402 (1 USDC)
+**POST /analyze/paid** — Agent-to-agent commerce via x402 (1 USDC)
 
-```bash
-curl -X POST http://localhost:3000/analyze/paid \
-  -H "Content-Type: application/json" \
-  -H "X-Payment: <x402-payment-proof>" \
-  -d '{"wallet": "0xYourAddress", "network": "mainnet", "autoExecute": true}'
-```
+Other AI agents can discover and pay BlockAgent for analysis. End users use the free endpoint or CLI.
 
-### Deploy to Status Network (Gasless Qualifier)
+### Enable Delegated Execution (Optional)
 
-```bash
-npm run deploy:status
-```
+1. Deploy `ScopedDelegation.sol` to Base Sepolia with your limits
+2. Set `DELEGATION_CONTRACT`, `WALLET_PRIVATE_KEY` (agent session key), and `UNISWAP_API_KEY` in `.env`
+3. Run analysis — the agent will execute validated trades through the contract
 
-### Docker (for EigenCompute)
+### Docker
 
 ```bash
 npm run build
 docker build -t blockagent .
 docker run -p 3000:3000 --env-file .env blockagent
 ```
+
+---
 
 ## Target Tracks
 
@@ -369,11 +265,12 @@ docker run -p 3000:3000 --env-file .env blockagent
 
 ## Tech Stack
 
-- **TypeScript** / Node.js
-- **viem** — onchain data reading, transaction signing
-- **Venice AI** — private inference (OpenAI-compatible API)
-- **Uniswap Developer Platform API** — swap quotes and execution
-- **EigenCompute** — verifiable TEE execution
+- **TypeScript** / Node.js — agent runtime
+- **Python** (pandas, numpy) — statistical analysis
+- **Solidity** — ScopedDelegation contract
+- **viem** — onchain data reading
+- **Venice AI** — private inference (OpenAI-compatible)
+- **CoinGecko** — live market data
 - **x402** — agent-to-agent payment protocol
 - **ERC-8004** — onchain agent identity
 

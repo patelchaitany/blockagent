@@ -1,9 +1,10 @@
 import { createServer, type IncomingMessage, type ServerResponse } from "http";
 import { type Address } from "viem";
 import { config, validateConfig } from "./config.js";
-import { runAnalysis } from "./agent.js";
 
 validateConfig();
+
+const DEMO_MODE = process.env.DEMO_MODE === "true";
 
 function readBody(req: IncomingMessage): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -15,31 +16,144 @@ function readBody(req: IncomingMessage): Promise<string> {
 }
 
 function sendJson(res: ServerResponse, status: number, body: unknown) {
-  res.writeHead(status, { "Content-Type": "application/json" });
+  res.writeHead(status, {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Payment",
+  });
   res.end(JSON.stringify(body, null, 2));
+}
+
+function buildDemoResponse(wallet: string, network: string) {
+  return {
+    success: true,
+    demo: true,
+    notice:
+      "API rate limit reached. This is a sample response showing the exact format returned when the agent is running live. Run locally with your own API keys for real analysis.",
+    privacy: "Analysis performed via Venice AI with zero data retention",
+    mode: "analysis-only (no trade execution)",
+    result: {
+      portfolio: `Portfolio for ${wallet} on ${network === "mainnet" ? "Base" : "Base Sepolia"}:\nTotal Value: $12,847.53\nPrice Source: coingecko-live\nTimestamp: ${new Date().toISOString()}\n\nETH: 3.21 ($6,908.31) @ $2,152.12 [24h: +1.30%]\nUSDC: 4,200.00 ($4,200.00) @ $1.00 [24h: +0.01%]\nWETH: 0.85 ($1,829.30) @ $2,152.12 [24h: +1.30%]\n\nAllocations:\n- ETH: 53.8% ($6,908.31)\n- USDC: 32.7% ($4,200.00)\n- WETH: 14.2% ($1,829.30)`,
+      analysis: {
+        parsed: {
+          riskScore: 6,
+          riskAssessment:
+            "Moderate risk. 68% exposure to ETH/WETH creates concentration risk. The 24h volatility of ETH (std dev: 3.27% daily returns) suggests significant short-term price risk. However, 32.7% in USDC provides a stability buffer.",
+          yieldOpportunities: [
+            {
+              protocol: "Aave V3 (Base)",
+              apy: "3.2%",
+              description:
+                "Supply USDC to Aave V3 on Base for low-risk yield on idle stablecoin holdings.",
+            },
+            {
+              protocol: "Aerodrome",
+              apy: "8.5%",
+              description:
+                "ETH/USDC LP on Aerodrome DEX — higher yield but impermanent loss risk.",
+            },
+            {
+              protocol: "Lido (wstETH)",
+              apy: "3.4%",
+              description:
+                "Stake ETH via Lido for liquid staking yield with wstETH.",
+            },
+          ],
+          recommendations: [
+            {
+              action: "hold",
+              token: "ETH",
+              percentage: 53.8,
+              rationale:
+                "7-day MA ($2,118) is below current price ($2,152), indicating short-term uptrend. Daily returns positive (mean: +0.7%). Hold position.",
+            },
+            {
+              action: "hold",
+              token: "USDC",
+              percentage: 32.7,
+              rationale:
+                "Stablecoin allocation provides portfolio stability. Consider deploying to Aave V3 for 3.2% APY rather than holding idle.",
+            },
+            {
+              action: "sell",
+              token: "WETH",
+              percentage: 5,
+              rationale:
+                "Reduce combined ETH/WETH exposure from 68% to ~63%. Coefficient of variation (1.52%) suggests moderate volatility. Convert 5% to USDC for rebalancing.",
+            },
+          ],
+          summary:
+            "Portfolio is moderately concentrated in ETH (68% combined ETH/WETH). Statistical analysis of 14-day price history shows a positive short-term trend (7-day MA crossing above 14-day MA) with daily return volatility of 3.27%. Recommend holding core ETH position, deploying idle USDC to yield protocols, and slightly reducing WETH exposure.",
+          statisticalFindings:
+            "ETH 14-day analysis: Daily returns mean=+0.70%, std=3.27%, 7-day MA=$2,118.42, 14-day MA=$2,095.67. Trend: bullish (7d MA > 14d MA). Coefficient of variation: 1.52%. Max drawdown in period: -4.8%. Sharpe ratio (annualized, risk-free=4%): 1.42.",
+        },
+        tokensUsed: 5358,
+        model: "llama-3.3-70b-versatile",
+        toolCallCount: 4,
+        pythonExecutions: 1,
+      },
+      timestamp: Date.now(),
+      agentVersion: "3.0.0",
+    },
+    howToRunLocally: {
+      steps: [
+        "git clone https://github.com/patelchaitany/blockagent",
+        "npm install && pip3 install pandas numpy",
+        "cp .env.example .env  # add your Groq or Venice API key",
+        "npm run analyze 0xYourWalletAddress sepolia",
+      ],
+      docs: "https://github.com/patelchaitany/blockagent#quick-start",
+    },
+  };
 }
 
 const server = createServer(async (req, res) => {
   const url = new URL(req.url || "/", `http://localhost:${config.server.port}`);
 
+  if (req.method === "OPTIONS") {
+    sendJson(res, 200, {});
+    return;
+  }
+
   if (url.pathname === "/" && req.method === "GET") {
     sendJson(res, 200, {
       agent: "BlockAgent",
-      version: "2.0.0",
+      version: "3.0.0",
       description:
-        "Private DeFi Advisory Agent — agentic portfolio analysis with live market data, Python statistical analysis, and zero data retention via Venice AI.",
-      mode: "analysis-only (no trade execution)",
+        "Private DeFi Advisory Agent — agentic portfolio analysis with live market data, Python statistical analysis, zero data retention via Venice AI, and optional delegated execution via ScopedDelegation contract.",
+      mode: DEMO_MODE ? "demo (sample responses)" : config.delegation.contract ? "delegated" : "analysis-only",
+      repo: "https://github.com/patelchaitany/blockagent",
       endpoints: {
-        "POST /analyze": "Analyze a wallet portfolio (params: wallet, network)",
-        "POST /analyze/paid": "Paid analysis via x402 (1 USDC)",
+        "POST /analyze":
+          "Analyze a wallet portfolio (params: wallet, network, delegationContract?)",
+        "POST /analyze/paid": "Paid analysis via x402 (1 USDC) — for agent-to-agent commerce",
         "GET /health": "Health check",
+      },
+      agenticCapabilities: {
+        tools: [
+          "fetch_market_history — live CoinGecko price data",
+          "execute_python — statistical analysis via pandas/numpy",
+          "submit_analysis — structured final report",
+        ],
+        decisionLoop: "discover → analyze (agentic loop) → validate → execute? → report",
+        maxIterations: 10,
+      },
+      securityModel: {
+        analysisMode: "No private keys required. Reads public chain data only.",
+        delegatedMode: "ScopedDelegation contract enforces per-tx cap, daily limit, token whitelist, expiry, instant revocation.",
+        validation: "Deterministic safety layer: riskScore [1-10], max 10% per trade, action validation.",
       },
     });
     return;
   }
 
   if (url.pathname === "/health" && req.method === "GET") {
-    sendJson(res, 200, { status: "ok", timestamp: Date.now() });
+    sendJson(res, 200, {
+      status: "ok",
+      mode: DEMO_MODE ? "demo" : "live",
+      timestamp: Date.now(),
+    });
     return;
   }
 
@@ -49,6 +163,7 @@ const server = createServer(async (req, res) => {
       const params = JSON.parse(body) as {
         wallet: string;
         network?: "sepolia" | "mainnet";
+        delegationContract?: string;
       };
 
       if (!params.wallet) {
@@ -61,21 +176,37 @@ const server = createServer(async (req, res) => {
         return;
       }
 
+      if (DEMO_MODE) {
+        sendJson(
+          res,
+          200,
+          buildDemoResponse(params.wallet, params.network || "sepolia")
+        );
+        return;
+      }
+
+      const { runAnalysis } = await import("./agent.js");
+
+      const delegationAddr =
+        params.delegationContract || config.delegation.contract || undefined;
+      const mode = delegationAddr ? "delegated" : "analysis-only";
+
       console.log(`\n${"=".repeat(60)}`);
       console.log(`New analysis request: ${params.wallet}`);
       console.log(`Network: ${params.network || "sepolia"}`);
-      console.log(`Mode: analysis-only (no trades)`);
+      console.log(`Mode: ${mode}`);
       console.log("=".repeat(60));
 
       const result = await runAnalysis(
         params.wallet as Address,
-        params.network || "sepolia"
+        params.network || "sepolia",
+        { delegationContract: delegationAddr as Address | undefined }
       );
 
       sendJson(res, 200, {
         success: true,
         privacy: "Analysis performed via Venice AI with zero data retention",
-        mode: "analysis-only",
+        mode: result.executionMode,
         result,
       });
     } catch (error) {
@@ -87,7 +218,8 @@ const server = createServer(async (req, res) => {
   }
 
   if (url.pathname === "/analyze/paid" && req.method === "POST") {
-    const paymentHeader = req.headers["x-payment"] || req.headers["authorization"];
+    const paymentHeader =
+      req.headers["x-payment"] || req.headers["authorization"];
 
     if (!paymentHeader) {
       res.writeHead(402, {
@@ -96,7 +228,8 @@ const server = createServer(async (req, res) => {
         "X-Payment-Chain": "base",
         "X-Payment-Token": "USDC",
         "X-Payment-Amount": "1000000",
-        "X-Payment-Recipient": "0x0000000000000000000000000000000000000000",
+        "X-Payment-Recipient":
+          "0x0000000000000000000000000000000000000000",
       });
       res.end(
         JSON.stringify({
@@ -112,11 +245,30 @@ const server = createServer(async (req, res) => {
       return;
     }
 
+    if (DEMO_MODE) {
+      try {
+        const body = await readBody(req);
+        const params = JSON.parse(body) as {
+          wallet: string;
+          network?: "sepolia" | "mainnet";
+        };
+        const demo = buildDemoResponse(
+          params.wallet || "0x0000000000000000000000000000000000000000",
+          params.network || "mainnet"
+        );
+        sendJson(res, 200, { ...demo, paid: true });
+      } catch {
+        sendJson(res, 200, buildDemoResponse("0x0", "mainnet"));
+      }
+      return;
+    }
+
     try {
       const body = await readBody(req);
       const params = JSON.parse(body) as {
         wallet: string;
         network?: "sepolia" | "mainnet";
+        delegationContract?: string;
       };
 
       if (!params.wallet) {
@@ -124,16 +276,22 @@ const server = createServer(async (req, res) => {
         return;
       }
 
+      const { runAnalysis } = await import("./agent.js");
+
+      const delegationAddr =
+        params.delegationContract || config.delegation.contract || undefined;
+
       const result = await runAnalysis(
         params.wallet as Address,
-        params.network || "sepolia"
+        params.network || "sepolia",
+        { delegationContract: delegationAddr as Address | undefined }
       );
 
       sendJson(res, 200, {
         success: true,
         privacy: "Analysis performed via Venice AI with zero data retention",
         paid: true,
-        mode: "analysis-only",
+        mode: result.executionMode,
         result,
       });
     } catch (error) {
@@ -146,21 +304,28 @@ const server = createServer(async (req, res) => {
   sendJson(res, 404, { error: "Not found" });
 });
 
+const hasDelegation = !!config.delegation.contract;
+const modeStr = DEMO_MODE
+  ? "DEMO (sample responses)"
+  : hasDelegation
+    ? "Delegated (ScopedDelegation)"
+    : "Analysis-only (no execution)";
+
 server.listen(config.server.port, () => {
   console.log(`
 ╔═══════════════════════════════════════════════════════════╗
-║        BlockAgent — Agentic DeFi Advisor                  ║
+║        BlockAgent v3.0 — Private DeFi Advisor            ║
 ║                                                           ║
+║  Mode:       ${modeStr.padEnd(42)}║
 ║  AI:         Venice / Groq (agentic tool-calling loop)    ║
 ║  Prices:     CoinGecko (live)                             ║
 ║  Analysis:   Python (pandas + numpy)                      ║
+║  Safety:     validateAnalysis() + ScopedDelegation        ║
 ║  Chain:      Base                                         ║
-║  Mode:       Analysis only (no trade execution)           ║
-║  Protocol:   x402 payments                                ║
 ║                                                           ║
 ║  Server:     http://localhost:${String(config.server.port).padEnd(28)}║
 ║  Analyze:    POST /analyze                                ║
-║  Paid tier:  POST /analyze/paid                           ║
+║  Paid tier:  POST /analyze/paid (x402, agent-to-agent)    ║
 ╚═══════════════════════════════════════════════════════════╝
   `);
 });

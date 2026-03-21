@@ -236,6 +236,12 @@ async function handleToolCall(
   }
 }
 
+export interface ValidationWarning {
+  field: string;
+  issue: string;
+  corrected: boolean;
+}
+
 export interface AgenticAnalysisResult {
   analysis: string;
   parsed: Record<string, unknown> | null;
@@ -243,6 +249,71 @@ export interface AgenticAnalysisResult {
   model: string;
   toolCallCount: number;
   pythonExecutions: number;
+  validationWarnings: ValidationWarning[];
+}
+
+function validateAnalysis(
+  parsed: Record<string, unknown>
+): { sanitized: Record<string, unknown>; warnings: ValidationWarning[] } {
+  const warnings: ValidationWarning[] = [];
+  const sanitized = { ...parsed };
+
+  const riskScore = Number(sanitized["riskScore"]);
+  if (isNaN(riskScore) || riskScore < 1 || riskScore > 10) {
+    warnings.push({
+      field: "riskScore",
+      issue: `Value ${sanitized["riskScore"]} out of range [1-10], clamped`,
+      corrected: true,
+    });
+    sanitized["riskScore"] = Math.max(1, Math.min(10, isNaN(riskScore) ? 5 : Math.round(riskScore)));
+  }
+
+  const recs = sanitized["recommendations"];
+  if (Array.isArray(recs)) {
+    const validActions = new Set(["buy", "sell", "hold"]);
+    const cleaned = recs.map((rec: Record<string, unknown>, i: number) => {
+      const action = String(rec.action ?? "hold").toLowerCase();
+      if (!validActions.has(action)) {
+        warnings.push({
+          field: `recommendations[${i}].action`,
+          issue: `Invalid action "${rec.action}", defaulted to "hold"`,
+          corrected: true,
+        });
+        rec = { ...rec, action: "hold" };
+      }
+
+      const pct = Number(rec.percentage);
+      if (isNaN(pct) || pct < 0 || pct > 100) {
+        warnings.push({
+          field: `recommendations[${i}].percentage`,
+          issue: `Value ${rec.percentage} out of range [0-100], clamped`,
+          corrected: true,
+        });
+        rec = { ...rec, percentage: Math.max(0, Math.min(100, isNaN(pct) ? 0 : pct)) };
+      }
+
+      if (pct > 10 && (action === "buy" || action === "sell")) {
+        warnings.push({
+          field: `recommendations[${i}].percentage`,
+          issue: `${action.toUpperCase()} ${pct}% exceeds 10% safety limit, capped at 10%`,
+          corrected: true,
+        });
+        rec = { ...rec, percentage: 10 };
+      }
+
+      return rec;
+    });
+    sanitized["recommendations"] = cleaned;
+  }
+
+  if (warnings.length > 0) {
+    console.log(`[validation] ${warnings.length} issue(s) corrected in LLM output`);
+    for (const w of warnings) {
+      console.log(`  - ${w.field}: ${w.issue}`);
+    }
+  }
+
+  return { sanitized, warnings };
 }
 
 export async function analyzePortfolio(
@@ -334,6 +405,13 @@ export async function analyzePortfolio(
     }
   }
 
+  let validationWarnings: ValidationWarning[] = [];
+  if (finalAnalysis) {
+    const { sanitized, warnings } = validateAnalysis(finalAnalysis);
+    finalAnalysis = sanitized;
+    validationWarnings = warnings;
+  }
+
   const analysisText = finalAnalysis
     ? JSON.stringify(finalAnalysis, null, 2)
     : messages
@@ -348,5 +426,6 @@ export async function analyzePortfolio(
     model: config.venice.model,
     toolCallCount,
     pythonExecutions,
+    validationWarnings,
   };
 }

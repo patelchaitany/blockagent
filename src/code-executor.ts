@@ -1,7 +1,25 @@
 import { spawn } from "child_process";
+import { tmpdir } from "os";
+import { mkdtempSync } from "fs";
+import { join } from "path";
 
 const TIMEOUT_MS = 30_000;
 const MAX_OUTPUT_BYTES = 50_000;
+
+const BLOCKED_PATTERNS = [
+  /\bos\.environ\b/,
+  /\bos\.getenv\b/,
+  /\bos\.system\b/,
+  /\bsubprocess\b/,
+  /\bshutil\b/,
+  /\b__import__\b/,
+  /\bopen\s*\(\s*['"]/,
+  /\.env/,
+  /WALLET_PRIVATE_KEY/,
+  /VENICE_API_KEY/,
+  /LLM_API_KEY/,
+  /UNISWAP_API_KEY/,
+];
 
 export interface ExecutionResult {
   stdout: string;
@@ -11,10 +29,32 @@ export interface ExecutionResult {
 }
 
 export async function executePython(code: string): Promise<ExecutionResult> {
+  for (const pattern of BLOCKED_PATTERNS) {
+    if (pattern.test(code)) {
+      return {
+        stdout: "",
+        stderr: `Blocked: code contains disallowed pattern "${pattern.source}". Python execution is sandboxed for statistical analysis only.`,
+        success: false,
+        timedOut: false,
+      };
+    }
+  }
+
+  const sandboxDir = mkdtempSync(join(tmpdir(), "blockagent-py-"));
+
+  const sandboxEnv: Record<string, string> = {
+    PATH: process.env.PATH || "/usr/bin:/usr/local/bin",
+    HOME: sandboxDir,
+    TMPDIR: sandboxDir,
+    PYTHONIOENCODING: "utf-8",
+    PYTHONDONTWRITEBYTECODE: "1",
+  };
+
   return new Promise((resolve) => {
     const proc = spawn("python3", ["-u", "-c", code], {
       timeout: TIMEOUT_MS,
-      env: { ...process.env, PYTHONIOENCODING: "utf-8" },
+      env: sandboxEnv,
+      cwd: sandboxDir,
       stdio: ["pipe", "pipe", "pipe"],
     });
 

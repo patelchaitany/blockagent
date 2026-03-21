@@ -1,60 +1,68 @@
 {
   "name": "BlockAgent",
-  "version": "1.0.0",
-  "description": "Private DeFi Advisory Agent — confidential portfolio analysis via Venice AI (zero data retention), real token swaps via Uniswap API, verifiable execution via EigenCompute TEE. Discoverable on Base via x402 payments.",
+  "version": "3.0.0",
+  "description": "Private DeFi Advisory Agent — agentic portfolio analysis via Venice AI (zero data retention) with Python-based statistical analysis, live CoinGecko market data, and optional delegated execution via ScopedDelegation smart contract (ERC-7715 inspired).",
   "operatorWallet": "",
   "erc8004Identity": {
     "tokenId": "",
     "chain": "base",
-    "registrationTx": ""
+    "registrationTx": "0x77bf5f2369fef414478919f293b6f74ada0460943b82941bd9633fada3bd7439"
   },
   "supportedTools": [
     "Venice AI (private inference, zero data retention)",
-    "Uniswap Developer Platform API (swap quotes + execution)",
-    "viem (onchain data reading, transaction signing)",
-    "EigenCompute TEE (verifiable execution)",
+    "CoinGecko (live market prices and historical data)",
+    "Python executor (pandas/numpy statistical analysis)",
+    "viem (onchain data reading)",
+    "ScopedDelegation contract (ERC-7715 spending limits)",
     "x402 protocol (agent-to-agent payments)"
   ],
   "techStack": [
     "TypeScript",
     "Node.js",
     "viem",
+    "Python (pandas, numpy)",
+    "Solidity",
     "Base (Sepolia + Mainnet)"
   ],
   "computeConstraints": {
-    "maxToolCallsPerRun": 20,
+    "maxToolCallsPerRun": 10,
     "maxRunDurationSeconds": 120
   },
   "taskCategories": [
     "portfolio-analysis",
     "defi-advisory",
-    "token-swap",
-    "risk-assessment"
+    "risk-assessment",
+    "market-statistics"
   ],
   "decisionLoop": [
-    "discover",
-    "analyze",
-    "recommend",
-    "execute",
-    "report"
+    "discover (read onchain balances + live prices)",
+    "analyze (agentic loop: fetch history → Python stats → structured report)",
+    "validate (deterministic safety checks on LLM output)",
+    "execute (optional: delegated via ScopedDelegation contract)",
+    "report (log to agent_log.json)"
   ],
+  "executionModes": {
+    "analysis-only": "Default. No private key needed. Reads public onchain data and produces advisory recommendations.",
+    "delegated": "Optional. Requires ScopedDelegation contract deployed by user. Agent uses a session key with on-chain spending limits (max per tx, daily cap, token whitelist, expiry). User can revoke instantly."
+  },
   "safetyGuardrails": [
-    "All inference routed through Venice AI — zero data retention, prompts never stored",
-    "Swap execution requires explicit autoExecute flag — analysis-only by default",
-    "Wallet address validation before any onchain reads",
-    "Uniswap slippage protection (configurable, default 0.5%)",
-    "Compute budget cap prevents runaway loops (max 20 tool calls per run)",
+    "Analysis-only by default — no keys, no execution, no risk",
+    "All inference routed through Venice AI — zero data retention",
+    "Deterministic validation layer: riskScore [1-10], percentage [0-100], max 10% per trade",
+    "Delegated execution enforced on-chain: per-tx cap, daily limit, token whitelist, expiry, instant revocation",
+    "Agent session key has zero value — all authority lives in the ScopedDelegation contract",
+    "Python code execution sandboxed with 30s timeout and output limits",
     "All actions logged to agent_log.json for auditability"
   ],
   "privacyArchitecture": {
     "inference": "Venice AI — zero data retention, no prompt logging",
     "model": "llama-3.3-70b (Private tier) or configurable",
     "dataFlow": "Onchain data (public) → Venice analysis (private, ephemeral) → User receives result",
-    "guarantees": [
-      "Portfolio data never stored by inference provider",
-      "No third party can observe what portfolios are being analyzed",
-      "Analysis results are ephemeral — exist only during the request lifecycle"
+    "limitations": [
+      "CoinGecko price history fetches reveal which tokens are queried (not which wallet)",
+      "If delegated execution is enabled, Uniswap routing API sees trade intent",
+      "Inference is private but the portfolio data read from chain is public"
     ]
   },
-  "repo": "https://github.com/user/blockagent"
+  "repo": "https://github.com/patelchaitany/blockagent"
 }
