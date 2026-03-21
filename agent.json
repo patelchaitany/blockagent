@@ -1,0 +1,60 @@
+{
+  "name": "BlockAgent",
+  "version": "1.0.0",
+  "description": "Private DeFi Advisory Agent — confidential portfolio analysis via Venice AI (zero data retention), real token swaps via Uniswap API, verifiable execution via EigenCompute TEE. Discoverable on Base via x402 payments.",
+  "operatorWallet": "",
+  "erc8004Identity": {
+    "tokenId": "",
+    "chain": "base",
+    "registrationTx": ""
+  },
+  "supportedTools": [
+    "Venice AI (private inference, zero data retention)",
+    "Uniswap Developer Platform API (swap quotes + execution)",
+    "viem (onchain data reading, transaction signing)",
+    "EigenCompute TEE (verifiable execution)",
+    "x402 protocol (agent-to-agent payments)"
+  ],
+  "techStack": [
+    "TypeScript",
+    "Node.js",
+    "viem",
+    "Base (Sepolia + Mainnet)"
+  ],
+  "computeConstraints": {
+    "maxToolCallsPerRun": 20,
+    "maxRunDurationSeconds": 120
+  },
+  "taskCategories": [
+    "portfolio-analysis",
+    "defi-advisory",
+    "token-swap",
+    "risk-assessment"
+  ],
+  "decisionLoop": [
+    "discover",
+    "analyze",
+    "recommend",
+    "execute",
+    "report"
+  ],
+  "safetyGuardrails": [
+    "All inference routed through Venice AI — zero data retention, prompts never stored",
+    "Swap execution requires explicit autoExecute flag — analysis-only by default",
+    "Wallet address validation before any onchain reads",
+    "Uniswap slippage protection (configurable, default 0.5%)",
+    "Compute budget cap prevents runaway loops (max 20 tool calls per run)",
+    "All actions logged to agent_log.json for auditability"
+  ],
+  "privacyArchitecture": {
+    "inference": "Venice AI — zero data retention, no prompt logging",
+    "model": "llama-3.3-70b (Private tier) or configurable",
+    "dataFlow": "Onchain data (public) → Venice analysis (private, ephemeral) → User receives result",
+    "guarantees": [
+      "Portfolio data never stored by inference provider",
+      "No third party can observe what portfolios are being analyzed",
+      "Analysis results are ephemeral — exist only during the request lifecycle"
+    ]
+  },
+  "repo": "https://github.com/user/blockagent"
+}

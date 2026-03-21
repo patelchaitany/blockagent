@@ -1,0 +1,27 @@
+{
+  "name": "blockagent",
+  "version": "1.0.0",
+  "description": "Private DeFi Advisory Agent — confidential portfolio analysis via Venice, real swaps via Uniswap, verifiable execution via EigenCompute",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "agent": "tsx src/agent.ts",
+    "analyze": "tsx src/cli.ts",
+    "deploy:status": "tsx src/deploy-status.ts"
+  },
+  "keywords": ["defi", "ai-agent", "venice", "uniswap", "erc-8004", "x402"],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "viem": "^2.47.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
