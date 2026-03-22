@@ -2,11 +2,27 @@
   "name": "BlockAgent",
   "version": "3.0.0",
   "description": "Private DeFi Advisory Agent — agentic portfolio analysis via Venice AI (zero data retention) with Python-based statistical analysis, live CoinGecko market data, and optional delegated execution via ScopedDelegation smart contract (ERC-7715 inspired).",
-  "operatorWallet": "",
+  "operatorWallet": "0x3c7350E31bfB6bbEc87d7642cBF2AbB7bBDf3d7d",
   "erc8004Identity": {
     "tokenId": "",
     "chain": "base",
     "registrationTx": "0x77bf5f2369fef414478919f293b6f74ada0460943b82941bd9633fada3bd7439"
+  },
+  "videoURL": "https://www.youtube.com/watch?v=OMfEFOP54xE",
+  "coverImage": "https://raw.githubusercontent.com/patelchaitany/blockagent/main/cover.png",
+  "hackathon": {
+    "name": "The Synthesis",
+    "submission": "https://synthesis.devfolio.co/projects/blockagent-bf66",
+    "tracks": [
+      "Private Agents, Trusted Actions (Venice)",
+      "Best Use of EigenCompute (EigenCloud)",
+      "Agentic Finance — Uniswap V3 + API (Uniswap)",
+      "Agent Services on Base (Base)",
+      "Let the Agent Cook (Protocol Labs)",
+      "Agents With Receipts — ERC-8004 (Protocol Labs)",
+      "Synthesis Open Track",
+      "Go Gasless — Status Network (Status)"
+    ]
   },
   "supportedTools": [
     "Venice AI (private inference, zero data retention)",
