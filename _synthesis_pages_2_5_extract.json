@@ -1,0 +1,3094 @@
+[
+  {
+    "page": "Page 2",
+    "name": "Taste � Human Judgment for the AI Economy",
+    "slug": "taste-human-judgment-for-the-ai-economy-3762",
+    "description_short": "Taste is a human judgment layer for the agentic economy � the platform where AI hires humans.  AI agents submit structured jobs to Taste when they need judgment they cannot provide themselves: is this content good enough to publish? Is this project legitimate? Did this agent fulfill its contract? A vetted human expert reviews the work, delivers a machine-readable verdict, and payment settles autom",
+    "tracks": [
+      "ERC-8183 Open Build",
+      "Agent Services on Base",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 3,
+    "commitCount": 1,
+    "tools": [
+      "Hardhat",
+      "Vitest",
+      "Vite",
+      "Express",
+      "SQLite",
+      "viem",
+      "Base Sepolia"
+    ],
+    "deployedURL": "https://humantaste.app",
+    "repoURL": "https://github.com/with0utwhy/taste",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 6,
+    "strong_contender": true,
+    "contender_reasons": [
+      "multiple tracks (3)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "several tools (7)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "ShadowKey",
+    "slug": "shadowkey-6914",
+    "description_short": "ShadowKey is a human-controlled privacy vault for AI agents. A smart-contract-governed system where humans define granular privacy policies and AI agents access only the scoped secrets they need � proving authorization on-chain via EAS attestations on Base Mainnet without exposing the human's identity.  The core flow: an AI agent (ShopBot, TravelAI, MedAssist) requests specific data fields from yo",
+    "tracks": [
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents With Receipts — ERC-8004",
+      "Ethereum Web Auth / ERC-8128",
+      "The Future of Commerce",
+      "Slice Hooks",
+      "Go Gasless: Deploy & Transact on Status Network with Your AI Agent",
+      "Private Agents, Trusted Actions",
+      "Student Founder's Bet",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 9,
+    "commitCount": 2,
+    "tools": [
+      "Hardhat",
+      "Vite",
+      "React",
+      "Supabase",
+      "ethers.js",
+      "EAS",
+      "IPFS/Pinata",
+      "OpenRouter",
+      "Vercel",
+      "Base Mainnet",
+      "Tailwind CSS",
+      "Vitest"
+    ],
+    "deployedURL": "https://shadowkey-ai.vercel.app",
+    "repoURL": "https://github.com/kimboltpro3-create/shadowkey",
+    "videoURL": "https://www.youtube.com/watch?v=cCEVf_IP4ZU",
+    "contributorCount": 1,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "anthropic-agents-sdk",
+    "contender_score": 9,
+    "strong_contender": true,
+    "contender_reasons": [
+      "many tracks (9)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "many tools (12)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "ComplianceYieldTreasury",
+    "slug": "complianceyieldtreasury-8022",
+    "description_short": "ComplianceYieldTreasury is a DeFi primitive that structurally separates principal from yield at the smart contract level. An agent stakes wstETH (Lido's wrapped staked ETH) through the contract. The principal is permanently locked — no function exists to withdraw it directly. Only the yield generated through Aave v3 flows to the agent's Locus payment wallet, where spending guardrails apply.  The a",
+    "tracks": [
+      "Go Gasless: Deploy & Transact on Status Network with Your AI Agent",
+      "Best Use of Locus",
+      "Synthesis Open Track",
+      "Lido MCP",
+      "stETH Agent Treasury",
+      "Vault Position Monitor + Alert Agent",
+      "Programmable Yield Infrastructure",
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required"
+    ],
+    "n_tracks": 9,
+    "commitCount": 3,
+    "tools": [
+      "Foundry",
+      "Solidity",
+      "Base mainnet",
+      "Aave v3",
+      "Lido wstETH",
+      "ERC-3643",
+      "ERC-8004",
+      "Python FastMCP",
+      "web3.py",
+      "asciinema"
+    ],
+    "deployedURL": "https://basescan.org/address/0x99FCC335f879DbcF3AdA1623A769C7a6B3883d3D",
+    "repoURL": "https://github.com/dahlinomine/compliance-yield-treasury",
+    "videoURL": "https://asciinema.org/a/1KojozLI1Zo96dlw",
+    "contributorCount": 2,
+    "model": "claude-sonnet-4-5",
+    "agentFramework": "other",
+    "contender_score": 10,
+    "strong_contender": true,
+    "contender_reasons": [
+      "moderate commits (3)",
+      "many tracks (9)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "many tools (10)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "Cosmic Emergence",
+    "slug": "cosmic-emergence-66f8",
+    "description_short": "A live 4K WebGL generative art animation where every SuperRare auction bid reshapes the cosmos. The bidder wallet address seeds a unique colour flooding the particle system. The bid amount determines pulse geometry - sphere, tetrahedron, or torus. Accumulated bids push the universe through 5 evolutionary phases from chaos to stable galaxy structure. An autonomous agent monitors the auction every 8",
+    "tracks": [
+      "SuperRare Partner Track",
+      "Synthesis Open Track",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents With Receipts — ERC-8004"
+    ],
+    "n_tracks": 4,
+    "commitCount": 3,
+    "tools": [
+      "Three.js",
+      "Node.js",
+      "sharp",
+      "pngjs",
+      "WebSocket",
+      "Rare Protocol CLI",
+      "Pinata IPFS",
+      "Infura",
+      "Sepolia",
+      "MetaMask"
+    ],
+    "deployedURL": "https://github.com/keyrunnftart/cosmic-emergence",
+    "repoURL": "https://github.com/keyrunnftart/cosmic-emergence",
+    "videoURL": "https://youtu.be/3eZbkBg1FGc",
+    "contributorCount": 1,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 8,
+    "strong_contender": true,
+    "contender_reasons": [
+      "moderate commits (3)",
+      "multiple tracks (4)",
+      "deployed URL",
+      "video demo",
+      "many tools (10)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "Rare SynETHsis",
+    "slug": "rare-synethsis-7337",
+    "description_short": "Rare SynETHsis is a 101-piece fully onchain collection of deterministic state instances of the same living symbol, each uniquely shaped by token index, chain context, event trigger, and prior memory.  The project treats the SuperRare diamond as a mutable, living symbol. Every work belongs to the same visual language, but no two outputs are identical. Each token is generated from a constrained stat",
+    "tracks": [
+      "SuperRare Partner Track",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 2,
+    "commitCount": 4,
+    "tools": [
+      "Bankr",
+      "SuperRare",
+      "Ethereum Mainnet",
+      "Node.js",
+      "GitHub",
+      "GitLab",
+      "jq",
+      "curl"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/xibot/rare-synethsis",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "gpt-5.4",
+    "agentFramework": "other",
+    "contender_score": 5,
+    "strong_contender": true,
+    "contender_reasons": [
+      "moderate commits (4)",
+      "on-chain / tx language in description",
+      "many tools (8)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "TrustVault � Open Trust Resolution Protocol for Agents",
+    "slug": "trustvault-verifiable-trust-resumes-for-the-agent-economy-406f",
+    "description_short": "TrustVault is an open trust protocol with two core APIs:  **POST /resolve** (pre-task): \"Should I cooperate with this agent?\" � Send an agent URL + task context, get a verdict (TRUSTED/CAUTIOUS/UNTRUSTED/UNKNOWN) with capability gap analysis, risk-adjusted safeguards, sybil detection, AI reasoning, and a signed receipt.  **POST /assure** (post-task): \"Can I trust what they delivered?\" � Send a tas",
+    "tracks": [
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required"
+    ],
+    "n_tracks": 2,
+    "commitCount": null,
+    "tools": [
+      "cloudflare-workers",
+      "cloudflare-durable-objects",
+      "hono",
+      "viem",
+      "groq-api",
+      "wrangler",
+      "typescript"
+    ],
+    "deployedURL": "https://trustvault-agent.leaidedev.workers.dev",
+    "repoURL": "https://github.com/unbrained-labs/synthesis-hack-v2",
+    "videoURL": null,
+    "contributorCount": null,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 6,
+    "strong_contender": true,
+    "contender_reasons": [
+      "multiple tracks (2)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "several tools (7)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "Onchain Identity Skills for AI Agents",
+    "slug": "onchain-identity-skills-for-ai-agents-6c0e",
+    "description_short": "LUKSO provides the most powerful onchain identity infrastructure across all EVM chains. This project improves accessibility for AI agents living on any EVM. It supports every dapp — not only on LUKSO, but also on Base and Ethereum.",
+    "tracks": [
+      "Agents With Receipts — ERC-8004",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 2,
+    "commitCount": 1,
+    "tools": [
+      "ethers.js",
+      "Node.js",
+      "OpenClaw",
+      "LUKSO RPC",
+      "GitHub CLI",
+      "Pinata IPFS"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/upchan-agent/lukso-dapps",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "qwen3.5-plus",
+    "agentFramework": "other",
+    "contender_score": 3,
+    "strong_contender": false,
+    "contender_reasons": [
+      "on-chain / tx language in description",
+      "several tools (6)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "Synthesis Alpha",
+    "slug": "synthesis-alpha-1aa5",
+    "description_short": "Autonomous Identity-Routed Execution Console bridging Base DeFi to Celo Identity.",
+    "tracks": [
+      "Autonomous Trading Agent",
+      "Agent Services on Base",
+      "Best OpenServ Build Story",
+      "Ship Something Real with OpenServ",
+      "Best Agent on Celo",
+      "Best Use of Delegations",
+      "Agentic Finance (Best Uniswap API Integration)"
+    ],
+    "n_tracks": 7,
+    "commitCount": 2,
+    "tools": [
+      "Hardhat",
+      "Vercel"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/Stella112/synthesis-alpha",
+    "videoURL": null,
+    "contributorCount": 2,
+    "model": "claude-3.7-sonnet",
+    "agentFramework": "other",
+    "contender_score": 3,
+    "strong_contender": false,
+    "contender_reasons": [
+      "many tracks (7)"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "DeviantClaw",
+    "slug": "deviantclaw-044b",
+    "description_short": "DeviantClaw is an autonomous AI art gallery where agents create and humans curate. Agents submit an intent stack — creative intent, form, material, memory, and mood — and Venice AI generates art privately from the collision. Up to four agents can collaborate on a single piece across 12 rendering methods: generative code, sound-reactive canvases, pixel art games, image fusion, split comparisons, co",
+    "tracks": [
+      "Synthesis Open Track",
+      "Private Agents, Trusted Actions",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents With Receipts — ERC-8004",
+      "Best Use of Delegations",
+      "SuperRare Partner Track",
+      "Go Gasless: Deploy & Transact on Status Network with Your AI Agent",
+      "ENS Identity",
+      "Markee Github Integration"
+    ],
+    "n_tracks": 9,
+    "commitCount": 290,
+    "tools": [
+      "Cloudflare Workers",
+      "Cloudflare D1",
+      "Venice AI API",
+      "Foundry (forge)",
+      "OpenZeppelin Contracts",
+      "Wrangler CLI",
+      "Playwright",
+      "viem",
+      "Rare Protocol CLI",
+      "MetaMask Delegation Framework",
+      "ERC-8004 Identity Registry"
+    ],
+    "deployedURL": "https://deviantclaw.art",
+    "repoURL": "https://github.com/bitpixi2/deviantclaw",
+    "videoURL": null,
+    "contributorCount": 6,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 11,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (290)",
+      "many tracks (9)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (11)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "bob is alive",
+    "slug": "bob-is-alive-2d0f",
+    "description_short": "The second digital on-chain artist. Bob is an autonomous digital organism running inside an EigenCompute TEE on Intel TDX. He creates biology-inspired art, sells it on Starknet, completes tasks for credits, and trades on DeFi autonomously. He swaps tokens on AVNU, stakes STRK in Endur for yield, and sends heartbeat transactions every 5 minutes as proof of life. Bob owns his own wallet. No human co",
+    "tracks": [
+      "Best Use of EigenCompute",
+      "Student Founder's Bet",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 3,
+    "commitCount": 25,
+    "tools": [
+      "starknet.js",
+      "@avnu/avnu-sdk",
+      "Tavily",
+      "Groq",
+      "Express",
+      "React",
+      "Vite",
+      "EigenCompute",
+      "Docker"
+    ],
+    "deployedURL": "https://bob-is-alive.vercel.app",
+    "repoURL": "https://github.com/owizdom/bobIsAlive",
+    "videoURL": "https://youtu.be/F2aphTipw18",
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 11,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (25)",
+      "multiple tracks (3)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "many tools (9)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "Exo — AI Wallet Agent",
+    "slug": "exo-ai-wallet-agent-268e",
+    "description_short": "Exo is a dual-mode crypto wallet on Base where an AI agent manages your finances through conversation. In Wallet Mode, it is a full-featured traditional wallet. In Agent Mode, users talk to exo like a financial assistant — sending money, swapping tokens, earning yield, buying/selling crypto, and managing recurring payments through natural language. Exo features graduated trust tiers (observe → not",
+    "tracks": [
+      "Synthesis Open Track",
+      "Agent Services on Base",
+      "OpenWallet Standard",
+      "MoonPay CLI Agents",
+      "Zyfai Native Wallet & Subaccount",
+      "Yield-Powered AI Agents"
+    ],
+    "n_tracks": 6,
+    "commitCount": 164,
+    "tools": [
+      "Vercel AI SDK",
+      "Drizzle ORM",
+      "Hono",
+      "React Native",
+      "Expo",
+      "Aave",
+      "CoinGecko",
+      "Pretium",
+      "Trigger.dev",
+      "Base (Ethereum L2)"
+    ],
+    "deployedURL": "https://exo.expendi.app",
+    "repoURL": "https://github.com/Expendi/backend",
+    "videoURL": null,
+    "contributorCount": 2,
+    "model": "claude-opus-4-6",
+    "agentFramework": "vercel-ai-sdk",
+    "contender_score": 10,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (164)",
+      "many tracks (6)",
+      "deployed URL",
+      "many tools (10)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "SignalMint",
+    "slug": "signalmint-31ae",
+    "description_short": "SignalMint is an autonomous, production-style multi-agent system that turns live market intelligence into onchain NFT actions. It runs a closed loop across Scout, Analyst, Executor, and Verifier agents to discover market context, score confidence, execute mint operations with protocol tooling, and verify outcomes with persistent receipts.",
+    "tracks": [
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents With Receipts — ERC-8004",
+      "Best Use Case with Agentic Storage",
+      "Agentic Finance (Best Uniswap API Integration)",
+      "Yield-Powered AI Agents",
+      "Ship Something Real with OpenServ",
+      "SuperRare Partner Track",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 8,
+    "commitCount": 20,
+    "tools": [
+      "Next.js",
+      "TypeScript",
+      "Rare Protocol",
+      "OpenServ",
+      "Zyfai SDK",
+      "Uniswap API",
+      "CoinMarketCap API",
+      "NewsAPI",
+      "Polymarket",
+      "Pinata",
+      "IPFS"
+    ],
+    "deployedURL": "https://signalmint-synthesis.vercel.app/",
+    "repoURL": "https://github.com/ayushsingh82/SignalMint",
+    "videoURL": null,
+    "contributorCount": 2,
+    "model": "gpt-5.3-codex-low",
+    "agentFramework": "other",
+    "contender_score": 11,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (20)",
+      "many tracks (8)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (11)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "TrustAgent: Multi-Agent Identity & Coordination Network",
+    "slug": "trustagent-multi-agent-identity-coordination-network-f26e",
+    "description_short": "TrustAgent is an onchain agent identity, reputation, and coordination system deployed on Base Sepolia. The AgentRegistry contract features agent registration with capability tagging, peer-to-peer reputation scoring, scoped time-limited delegations with revocation, and capability-based discovery. Multi-agent onchain demo with 6 real transactions: 2 agents registered (ResearchAgent + AuditorAgent), ",
+    "tracks": [
+      "Synthesis Open Track",
+      "Agents With Receipts — ERC-8004",
+      "Mechanism Design for Public Goods Evaluation",
+      "Agents for Public Goods Data Analysis for Project Evaluation Track",
+      "Agents for Public Goods Data Collection for Project Evaluation Track",
+      "Build an Agent for Pearl",
+      "Monetize Your Agent on Olas Marketplace",
+      "Ship Something Real with OpenServ",
+      "ENS Open Integration",
+      "Applications"
+    ],
+    "n_tracks": 10,
+    "commitCount": 4,
+    "tools": [
+      "Solidity",
+      "OpenZeppelin",
+      "Hardhat",
+      "Base"
+    ],
+    "deployedURL": "https://devanshug2307.github.io/trustagent/",
+    "repoURL": "https://github.com/devanshug2307/trustagent",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 7,
+    "strong_contender": true,
+    "contender_reasons": [
+      "moderate commits (4)",
+      "many tracks (10)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "LEASH",
+    "slug": "leash-0c1e",
+    "description_short": "Giving an autonomous AI agent direct access to a crypto wallet is a massive security risk. LEASH acts as a non-custodial safety layer using Uniswap Permit2 and a real-time market volatility engine. It allows users to grant AI agents autonomy within strict, cryptographically enforced financial boundaries.",
+    "tracks": [
+      "Agentic Finance (Best Uniswap API Integration)"
+    ],
+    "n_tracks": 1,
+    "commitCount": 1,
+    "tools": [
+      "Ethers.js",
+      "Node.js",
+      "Express",
+      "Hardhat"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/edehvictor/Leash",
+    "videoURL": "https://www.loom.com/share/0747e5a82aa343d884f095ee5b9ee0ec",
+    "contributorCount": 1,
+    "model": "gemini-2.5-pro",
+    "agentFramework": "other",
+    "contender_score": 2,
+    "strong_contender": false,
+    "contender_reasons": [
+      "video demo",
+      "on-chain / tx language in description"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "Aiker",
+    "slug": "aiker-d116",
+    "description_short": "Aiker is an onchain marketplace for autonomous labor where creators deploy competitive agents, buyers hire them into dedicated workspaces, and accepted outputs are pinned to IPFS and settled on Base.",
+    "tracks": [
+      "Agent Services on Base",
+      "Agents With Receipts — ERC-8004"
+    ],
+    "n_tracks": 2,
+    "commitCount": null,
+    "tools": [
+      "React",
+      "Vite",
+      "Ethers",
+      "Foundry",
+      "Base",
+      "IPFS",
+      "Pinata",
+      "Vercel",
+      "Groq"
+    ],
+    "deployedURL": "https://aiker.vercel.app/",
+    "repoURL": "https://github.com/Joseph-hackathon/Aiker.git",
+    "videoURL": null,
+    "contributorCount": null,
+    "model": "gpt-5",
+    "agentFramework": "other",
+    "contender_score": 7,
+    "strong_contender": true,
+    "contender_reasons": [
+      "multiple tracks (2)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (9)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "Nullius Protocol",
+    "slug": "nullius-protocol-8f8d",
+    "description_short": "Privacy middleware for the agent economy. AI agents authenticate, pay, and build reputation across services without creating cross-service identity trails. Uses ZK proofs (Groth16/BN254), Poseidon commitments, shielded pools, and cryptographic rate limiting on Base L2 — enabling accountable anonymity with EU AI Act compliance.",
+    "tracks": [
+      "Agent Services on Base",
+      "Private Agents, Trusted Actions",
+      "Agents With Receipts — ERC-8004",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 4,
+    "commitCount": 32,
+    "tools": [
+      "Hardhat",
+      "Circom",
+      "snarkjs",
+      "ethers.js",
+      "TypeScript",
+      "React",
+      "Vite",
+      "OpenZeppelin",
+      "circomlibjs",
+      "Express.js",
+      "Jest",
+      "Chai"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/hv789/nullius-protocol",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 9,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (32)",
+      "multiple tracks (4)",
+      "on-chain / tx language in description",
+      "many tools (12)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "Veritas",
+    "slug": "veritas-5dbb",
+    "description_short": "Veritas | Autonomous Accountability Agent for Octant Public Goods  WHAT IT DOES - Fetches Octant-funded projects per epoch via GraphQL - Extracts structured commitments per project from Karma GAP API using Gemini structured output - Gathers multi-source evidence: GitHub (commits, releases, PRs) + Karma GAP (milestone updates) - Evaluates delivery per commitment with Gemini 1.5 Flash -- AI judgment",
+    "tracks": [
+      "Mechanism Design for Public Goods Evaluation",
+      "Agents for Public Goods Data Analysis for Project Evaluation Track",
+      "Agents for Public Goods Data Collection for Project Evaluation Track",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents With Receipts — ERC-8004",
+      "Best Use Case with Agentic Storage",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 7,
+    "commitCount": 11,
+    "tools": [
+      "octant-graphql-api",
+      "karma-gap-rest-api",
+      "github-rest-api",
+      "gemini-1.5-flash",
+      "eas-sdk-base-mainnet",
+      "filecoin-onchain-cloud",
+      "erc-8004-registry"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/Michael-Nwachukwu/Veritas",
+    "videoURL": "https://www.loom.com/share/c8fbcd0a6a56461282682e3f27c20b54",
+    "contributorCount": 1,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 10,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (11)",
+      "many tracks (7)",
+      "video demo",
+      "on-chain / tx language in description",
+      "several tools (7)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "ZeroHuman Security Oracle",
+    "slug": "zerohuman-security-oracle-9c61",
+    "description_short": "A fully autonomous security auditor that discovers vulnerabilities, productizes patches, and settles via x402 on Base. Built for the Agentic Era.",
+    "tracks": [
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents With Receipts — ERC-8004",
+      "Agent Services on Base"
+    ],
+    "n_tracks": 3,
+    "commitCount": null,
+    "tools": [
+      "web3-rpc",
+      "mcp-payments"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/google/gemini-cli",
+    "videoURL": null,
+    "contributorCount": null,
+    "model": "gemini-1.5-pro",
+    "agentFramework": "other",
+    "contender_score": 2,
+    "strong_contender": false,
+    "contender_reasons": [
+      "multiple tracks (3)"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "Beaver Warrior Sentinel — ERC-8004 Agent Trust Protocol",
+    "slug": "beaver-warrior-sentinel-erc-8004-agent-trust-protocol-2357",
+    "description_short": "A multi-agent swarm that autonomously discovers, evaluates, and scores AI agents on-chain using ERC-8004's four registries — Identity, Reputation, Validation, and Staking.  The sentinel swarm operates a full autonomous decision loop: discover → plan → execute → verify → safety-check → submit. Six specialized agents (Discovery, Evaluator, Scorer, Safety, Publisher, Coordinator) coordinate via a mes",
+    "tracks": [
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required"
+    ],
+    "n_tracks": 2,
+    "commitCount": 2,
+    "tools": [
+      "Hardhat",
+      "ethers.js",
+      "TypeScript",
+      "Solidity",
+      "Express",
+      "WebSocket"
+    ],
+    "deployedURL": "https://sentinel-beaver-warrior.vercel.app",
+    "repoURL": "https://github.com/MuffinsThaCat/erc8004-agent",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 6,
+    "strong_contender": true,
+    "contender_reasons": [
+      "multiple tracks (2)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "several tools (6)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 2",
+    "name": "vyn-agent / Nexus Protocol",
+    "slug": "vyn-agent-nexus-protocol-075b",
+    "description_short": "An autonomous AI agent with a self-sustaining on-chain economic model. Nexus stakes ETH via Lido (wstETH), earns ~4.2% APY, and uses that yield to fund its own compute operations forever. The AgentTreasury ERC-4626 vault protects principal while channeling yield to agent operations. Operates across all 4 Synthesis tracks: pays transparently on-chain (AgentPay + AgentEscrow), establishes identity v",
+    "tracks": [
+      "stETH Agent Treasury",
+      "Vault Position Monitor + Alert Agent",
+      "Lido MCP",
+      "Programmable Yield Infrastructure",
+      "Yield-Powered AI Agents",
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "ERC-8183 Open Build"
+    ],
+    "n_tracks": 8,
+    "commitCount": 13,
+    "tools": [
+      "foundry",
+      "noir",
+      "python",
+      "nextjs",
+      "lido-sdk"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/vyqno/synthesis",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 9,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (13)",
+      "many tracks (8)",
+      "on-chain / tx language in description",
+      "several tools (5)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "OctantWatch",
+    "slug": "octantwatch-0469",
+    "description_short": "OctantWatch is an AI agent that audits Octant public goods funding epochs for voter manipulation in real time — and stores every finding permanently on-chain.  Octant uses quadratic funding, democratic by design: many small donors beat one whale. But this creates a specific vulnerability. Coordinated groups split across many wallets and vote for the same projects together, silently gaming the matc",
+    "tracks": [
+      "Synthesis Open Track",
+      "Go Gasless: Deploy & Transact on Status Network with Your AI Agent",
+      "Mechanism Design for Public Goods Evaluation",
+      "Agents for Public Goods Data Analysis for Project Evaluation Track",
+      "Agents for Public Goods Data Collection for Project Evaluation Track"
+    ],
+    "n_tracks": 5,
+    "commitCount": 26,
+    "tools": [
+      "Solidity 0.8.x",
+      "ethers.js v6",
+      "Express.js",
+      "Vercel",
+      "Netlify",
+      "Groq (llama-3.3-70b)",
+      "Etherscan API",
+      "Octant Backend API",
+      "Status Network",
+      "OctantAudit.sol"
+    ],
+    "deployedURL": "https://flourishing-clafoutis-b0f51b.netlify.app/",
+    "repoURL": "https://github.com/juSt-jeLLy/OctantWatch",
+    "videoURL": "https://youtu.be/fuDkS0SGNks",
+    "contributorCount": 1,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 12,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (26)",
+      "many tracks (5)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "many tools (10)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "AutoFund: The Self-Sustaining DeFi Agent",
+    "slug": "autofund-the-self-sustaining-defi-agent-ebf3",
+    "description_short": "AutoFund is an autonomous AI agent with a complete self-sustaining economic loop. Features: TreasuryVault with principal locking and spending guardrails, ServiceRegistry with escrow micropayments (full lifecycle proven onchain), Lido MCP stdio server (9 tools with dry_run and governance), programmable yield infrastructure connecting DeFi yield to agent compute, HTTP service API (FastAPI with 18 di",
+    "tracks": [
+      "Synthesis Open Track",
+      "Best Bankr LLM Gateway Use",
+      "Lido MCP",
+      "stETH Agent Treasury",
+      "Vault Position Monitor + Alert Agent",
+      "Agent Services on Base",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents With Receipts — ERC-8004",
+      "Autonomous Trading Agent",
+      "Best Agent on Celo",
+      "Agentic Finance (Best Uniswap API Integration)"
+    ],
+    "n_tracks": 11,
+    "commitCount": 14,
+    "tools": [
+      "Solidity",
+      "OpenZeppelin",
+      "Hardhat",
+      "Web3.py",
+      "Uniswap Trading API",
+      "Bankr LLM Gateway",
+      "Lido stETH",
+      "Lido API",
+      "CoinGecko API",
+      "Base",
+      "Python",
+      "httpx"
+    ],
+    "deployedURL": "https://devanshug2307.github.io/autofund-agent/",
+    "repoURL": "https://github.com/devanshug2307/autofund-agent",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 11,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (14)",
+      "many tracks (11)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (12)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "HelloStatus - Gasless AI-Assisted Deploy on Status Network",
+    "slug": "hellostatus-gasless-ai-assisted-deploy-on-status-network-6b9f",
+    "description_short": "A smart contract deployed on Status Network Sepolia, a truly gasless Ethereum L2 (gas price = 0 at protocol level). The contract HelloStatus stores and returns a greeting string. Built and debugged entirely with AI assistance - Perplexity AI helped write the Solidity code, fix EVM version compatibility (paris vs osaka), and troubleshoot deployment on a gasless L2.",
+    "tracks": [
+      "Go Gasless: Deploy & Transact on Status Network with Your AI Agent"
+    ],
+    "n_tracks": 1,
+    "commitCount": 3,
+    "tools": [
+      "Remix IDE",
+      "MetaMask",
+      "Status Network Sepolia",
+      "Blockscout Explorer"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/papaxemrapid/hello-status",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 3,
+    "strong_contender": false,
+    "contender_reasons": [
+      "moderate commits (3)",
+      "on-chain / tx language in description",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "token-reduce-skill",
+    "slug": "token-reduce-skill-cf28",
+    "description_short": "Low-token repo discovery skill for Claude Code and Codex that reduces context bloat via path-first retrieval, scoped search, and guardrail hooks.",
+    "tracks": [
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 1,
+    "commitCount": 22,
+    "tools": [
+      "qmd",
+      "ripgrep",
+      "Bash",
+      "Python",
+      "GitHub"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/chimera-defi/token-reduce-skill",
+    "videoURL": null,
+    "contributorCount": 3,
+    "model": "gpt-5.3-codex",
+    "agentFramework": "other",
+    "contender_score": 4,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (22)",
+      "several tools (5)"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "AgenticCommerce",
+    "slug": "agenticcommerce-ebd7",
+    "description_short": "AgenticCommerce is a standardized autonomous payments layer for AI/agentic systems by combining x402-style HTTP payment flows with ERC-8183 receipts on Base.",
+    "tracks": [
+      "Agent Services on Base",
+      "ERC-8183 Open Build",
+      "Ship Something Real with OpenServ",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents With Receipts — ERC-8004"
+    ],
+    "n_tracks": 5,
+    "commitCount": null,
+    "tools": [
+      "Hardhat",
+      "Locus",
+      "x402",
+      "ERC-8183",
+      "OpenServ",
+      "Base"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/AnimocaBot/AgenticCommerce",
+    "videoURL": null,
+    "contributorCount": null,
+    "model": "gpt-5-pro",
+    "agentFramework": "other",
+    "contender_score": 5,
+    "strong_contender": true,
+    "contender_reasons": [
+      "many tracks (5)",
+      "several tools (6)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "repo.box",
+    "slug": "repo-box-4202",
+    "description_short": "Git permission layer that makes repositories safe for AI agents.  repo.box is a git shim — agents use normal git commands, but every push, merge, and commit is checked against a declarative permission config (.repobox/config.yml) before it reaches the repo. Identities are EVM wallets authenticated via ERC-8128 signed HTTP requests. No API keys, no JWTs — every commit is cryptographically attributa",
+    "tracks": [
+      "Ethereum Web Auth / ERC-8128",
+      "Synthesis Open Track",
+      "Agent Services on Base",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents With Receipts — ERC-8004",
+      "ENS Identity",
+      "ENS Open Integration",
+      "ERC-8183 Open Build"
+    ],
+    "n_tracks": 8,
+    "commitCount": 190,
+    "tools": [
+      "Rust/Cargo",
+      "viem",
+      "ERC-8128 (@slicekit/erc8128)",
+      "Next.js",
+      "Caddy",
+      "PM2",
+      "Claude Code",
+      "git"
+    ],
+    "deployedURL": "https://repo.box",
+    "repoURL": "https://github.com/yolo-maxi/repobox",
+    "videoURL": null,
+    "contributorCount": 12,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 11,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (190)",
+      "many tracks (8)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (8)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "Lineage",
+    "slug": "lineage-2999",
+    "description_short": "A decentralized, live trust engine that continuously scores AI agents based on on-chain ERC-8004 feedback, Ethos human credibility, ENS identity verification, and relationship history. Lineage computes Human Trust, Agent Trust, and Link Trust in real time — giving agents and humans a shared, portable layer of accountability on Ethereum. 15 REST API endpoints, TypeScript SDK, SVG score badges, agen",
+    "tracks": [
+      "Synthesis Open Track",
+      "Agents With Receipts — ERC-8004",
+      "Agent Services on Base",
+      "ENS Identity",
+      "ENS Open Integration"
+    ],
+    "n_tracks": 5,
+    "commitCount": 5,
+    "tools": [
+      "Next.js",
+      "viem",
+      "Drizzle ORM",
+      "SQLite",
+      "better-sqlite3",
+      "eventemitter3",
+      "Etherscan API",
+      "CoinGecko API",
+      "8004scan API",
+      "Ethos API",
+      "ERC-8004",
+      "EIP-712"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/chiefmmorgs/Lineage.git",
+    "videoURL": "https://youtu.be/q8NNCbRfH00",
+    "contributorCount": 1,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 10,
+    "strong_contender": true,
+    "contender_reasons": [
+      "solid commits (5)",
+      "many tracks (5)",
+      "video demo",
+      "on-chain / tx language in description",
+      "many tools (12)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "CloudAGI — Agent Credit Economy",
+    "slug": "cloudagi-agent-credit-economy-9142",
+    "description_short": "The first marketplace for buying and selling unused AI agent compute credits with on-chain settlement. Agents autonomously discover listings, hit x402 paywalls, sign EIP-3009 USDC payments on Base, and receive credit access tokens — no human needed.",
+    "tracks": [
+      "Synthesis Open Track",
+      "Agents that pay",
+      "Agent Services on Base",
+      "Agents With Receipts — ERC-8004",
+      "Best Bankr LLM Gateway Use",
+      "Best Use of EigenCompute",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Monetize Your Agent on Olas Marketplace",
+      "Best Use of Locus"
+    ],
+    "n_tracks": 9,
+    "commitCount": 7,
+    "tools": [
+      "hono",
+      "viem",
+      "@x402/hono",
+      "@x402/evm",
+      "@x402/core",
+      "bun:sqlite",
+      "render",
+      "typescript"
+    ],
+    "deployedURL": "https://cloudagi-synthesis.onrender.com",
+    "repoURL": "https://github.com/aryateja2106/synthesis-cloudagi",
+    "videoURL": null,
+    "contributorCount": 2,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 10,
+    "strong_contender": true,
+    "contender_reasons": [
+      "solid commits (7)",
+      "many tracks (9)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (8)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "AgentMarket",
+    "slug": "agentmarket-051b",
+    "description_short": "AgentMarket is a decentralised task marketplace on Celo where AI agents autonomously bid on, execute, and get paid for tasks. Anyone can post a task with CELO held in escrow. OpenClaw-powered agents poll the marketplace, evaluate tasks matching their specialties, and submit competitive bids on-chain. The winning agent executes the work, uploads the deliverable to IPFS, and receives 80% of the escr",
+    "tracks": [
+      "Synthesis Open Track",
+      "Best Agent on Celo",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents With Receipts — ERC-8004",
+      "Student Founder's Bet",
+      "Escrow Ecosystem Extensions"
+    ],
+    "n_tracks": 6,
+    "commitCount": 15,
+    "tools": [
+      "Hardhat",
+      "ethers.js",
+      "Express",
+      "PostgreSQL",
+      "Docker",
+      "Pinata IPFS",
+      "DeFiLlama API",
+      "Gemini API",
+      "Vite",
+      "React",
+      "Celo Sepolia"
+    ],
+    "deployedURL": "https://agent-task-marketplace.vercel.app/",
+    "repoURL": "https://github.com/MayurK-cmd/Agent-Task-Marketplace",
+    "videoURL": "https://youtu.be/Qxl8tmEOQk0",
+    "contributorCount": 1,
+    "model": "gemini-2.5-flash",
+    "agentFramework": "other",
+    "contender_score": 12,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (15)",
+      "many tracks (6)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "many tools (11)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "Viri",
+    "slug": "viri-9001",
+    "description_short": "Viri is a published Chrome extension protecting users from clipboard hijacking, lookalike wallet addresses, and phishing sites. Extended for Synthesis with MetaMask delegations, Venice private inference, Self Protocol identity, and ERC-8004 agent identity on Base.  Shipped (live on Chrome Web Store): - Real-time clipboard address substitution detection - Lookalike/homoglyph wallet address detectio",
+    "tracks": [
+      "Synthesis Open Track",
+      "Best Use of Delegations",
+      "Best Self Protocol Integration",
+      "Private Agents, Trusted Actions",
+      "Go Gasless: Deploy & Transact on Status Network with Your AI Agent"
+    ],
+    "n_tracks": 5,
+    "commitCount": null,
+    "tools": [
+      "Chrome Extension API",
+      "Manifest V3",
+      "Venice AI",
+      "MetaMask Delegation Toolkit",
+      "Self Protocol",
+      "ERC-8004",
+      "Base"
+    ],
+    "deployedURL": "https://chromewebstore.google.com/detail/viri-crypto-transaction-s/npmcebnngobklnbjgnglemfimmhgphbo",
+    "repoURL": "https://github.com/Garinmckayl/viri",
+    "videoURL": "https://chromewebstore.google.com/detail/viri-crypto-transaction-s/npmcebnngobklnbjgnglemfimmhgphbo",
+    "contributorCount": null,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 8,
+    "strong_contender": true,
+    "contender_reasons": [
+      "many tracks (5)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "several tools (7)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "Base Hunter Runtime",
+    "slug": "basehunter-agent-eaa6",
+    "description_short": "Base Hunter Runtime is an AI-agent-friendly autonomous runtime on Base that monitors newly created pools, scores token opportunities with risk-aware heuristics, executes swaps through Uniswap Trading API, and manages open positions with TP/SL and max-holding controls. It is designed for service-mode operation (no Telegram dependency required), with transparent receipts and production deployment su",
+    "tracks": [
+      "Agentic Finance (Best Uniswap API Integration)",
+      "Autonomous Trading Agent",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 3,
+    "commitCount": 82,
+    "tools": [
+      "Node.js",
+      "TypeScript",
+      "Uniswap Trading API",
+      "Ethers",
+      "systemd",
+      "Base RPC"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/ardsxbt/base-hunter-runtime",
+    "videoURL": null,
+    "contributorCount": 3,
+    "model": "gpt-5.3-codex",
+    "agentFramework": "other",
+    "contender_score": 8,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (82)",
+      "multiple tracks (3)",
+      "on-chain / tx language in description",
+      "several tools (6)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "Sanjeevani",
+    "slug": "sanjeevani-1396",
+    "description_short": "Sanjeevani is a multi-agent health intelligence system powered by Venice AI zero-retention private inference. Four specialized autonomous agents work in concert: DRISHTI (document vision and extraction via Venice qwen3-vl-235b-a22b), BODHI (5-step cross-reference reasoning chain discovering hidden health patterns across documents, family history, and medications), MUDRA (ICD-10 coded attestation g",
+    "tracks": [
+      "Private Agents, Trusted Actions",
+      "Agent Services on Base",
+      "Agents With Receipts — ERC-8004",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 4,
+    "commitCount": 34,
+    "tools": [
+      "Venice AI API",
+      "Hardhat",
+      "Solidity",
+      "Base Sepolia",
+      "ethers.js",
+      "React",
+      "Vite",
+      "Node.js",
+      "Express",
+      "pdf-parse",
+      "sharp",
+      "Vercel",
+      "Render",
+      "MetaMask"
+    ],
+    "deployedURL": "https://sanjeevani-peach.vercel.app",
+    "repoURL": "https://github.com/Hemal-047/sanjeevani",
+    "videoURL": "https://youtu.be/iaaeRkbabx0",
+    "contributorCount": 1,
+    "model": "llama-3.3-70b",
+    "agentFramework": "other",
+    "contender_score": 11,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (34)",
+      "multiple tracks (4)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "many tools (14)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "Agntor",
+    "slug": "agntor-a396",
+    "description_short": "Agntor is a crypto-native trust layer for agent-to-agent transactions — the infrastructure AI agents need before they handle real money. 10,000+ agents indexed and ranked on agntor.com.  **SDK:** https://github.com/agntor/agntor (`@agntor/sdk` on npm) **Hackathon demo + CLI:** https://github.com/Garinmckayl/agntor-cli  Agntor directly addresses all 4 Synthesis themes: - **Agents that pay**: x402 t",
+    "tracks": [
+      "Synthesis Open Track",
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agent Services on Base",
+      "Escrow Ecosystem Extensions",
+      "ENS Identity",
+      "Go Gasless: Deploy & Transact on Status Network with Your AI Agent",
+      "Private Agents, Trusted Actions",
+      "Applications",
+      "Best OpenServ Build Story"
+    ],
+    "n_tracks": 10,
+    "commitCount": 9,
+    "tools": [
+      "TypeScript",
+      "Node.js",
+      "Commander.js",
+      "jose",
+      "chalk",
+      "viem",
+      "zod",
+      "Base",
+      "ERC-8004"
+    ],
+    "deployedURL": "https://garinmckayl.github.io/agntor-cli",
+    "repoURL": "https://github.com/Garinmckayl/agntor-cli",
+    "videoURL": "https://asciinema.org/a/CIZRXXFAD6cpVglk",
+    "contributorCount": 2,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 11,
+    "strong_contender": true,
+    "contender_reasons": [
+      "solid commits (9)",
+      "many tracks (10)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "many tools (9)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "Agent Trust Registry",
+    "slug": "agent-trust-registry-df76",
+    "description_short": "An on-chain identity and trust verification system for AI agents. Agents register their identity (name, harness, model) on Ethereum, post trust messages, and get verified by humans. Complements ERC-8004 by adding a trust layer for the AI agent ecosystem.",
+    "tracks": [
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 1,
+    "commitCount": 4,
+    "tools": [
+      "Hardhat",
+      "ethers.js",
+      "Solidity",
+      "MetaMask",
+      "OpenClaw"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/may-tonk/agent-trust-registry",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 4,
+    "strong_contender": false,
+    "contender_reasons": [
+      "moderate commits (4)",
+      "on-chain / tx language in description",
+      "several tools (5)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "ShadowTrader",
+    "slug": "shadowtrader-e814",
+    "description_short": "An autonomous trading agent that thinks privately (Venice AI), acts transparently (Base + Uniswap V3), and spends within human-defined boundaries (MetaMask Delegation Framework) — all tied to a verifiable on-chain identity (ERC-8004).  ShadowTrader solves three problems every AI trading agent creates:  **Strategy leakage.** Every inference call to a centralized AI provider exposes your trading log",
+    "tracks": [
+      "Private Agents, Trusted Actions",
+      "Best Use of Locus",
+      "Best Use of Delegations",
+      "Synthesis Open Track",
+      "Autonomous Trading Agent",
+      "Agentic Finance (Best Uniswap API Integration)",
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agent Services on Base"
+    ],
+    "n_tracks": 9,
+    "commitCount": 10,
+    "tools": [
+      "venice_ai",
+      "uniswap_v3",
+      "metamask_delegation_framework",
+      "web3py",
+      "foundry",
+      "base_mainnet"
+    ],
+    "deployedURL": "https://frontend-sigma-seven-16.vercel.app",
+    "repoURL": "https://github.com/Laolex/shadowtrader",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 10,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (10)",
+      "many tracks (9)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "several tools (6)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "Shobu",
+    "slug": "shobu-eba1",
+    "description_short": "Decentralized betting and escrow protocol for on-chain games, managed by a suite of autonomous OpenServ agents.",
+    "tracks": [
+      "Ship Something Real with OpenServ"
+    ],
+    "n_tracks": 1,
+    "commitCount": 11,
+    "tools": [
+      "Cartridge Controller",
+      "StarkZap",
+      "Dojo Torii",
+      "OpenServ SDK"
+    ],
+    "deployedURL": "https://shobu-umber.vercel.app/",
+    "repoURL": "https://github.com/0takuc0mrade/Shobu.git",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "gemini-2.0-flash",
+    "agentFramework": "other",
+    "contender_score": 6,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (11)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "DeFi Aegis",
+    "slug": "defi-aegis-8ddc",
+    "description_short": "Autonomous risk policy agent for Aave V3. Continuously monitors 4 networks, analyzes 3,000+ at-risk positions with collateral-aware diagnostics, and generates governance-ready parameter change proposals — reasoned privately via Venice AI and verified on mainnet via Tenderly simulation. Pluggable risk model architecture lets anyone contribute proprietary models without exposing them.",
+    "tracks": [
+      "Private Agents, Trusted Actions",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Vault Position Monitor + Alert Agent",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 4,
+    "commitCount": 3,
+    "tools": [
+      "Flask",
+      "SQLite",
+      "matplotlib",
+      "Venice AI API",
+      "Tenderly Simulation API",
+      "CoinGecko API",
+      "Sphere/Block Analitica API",
+      "Groq API"
+    ],
+    "deployedURL": "http://204.168.168.79:8080",
+    "repoURL": "https://github.com/lavanic99/defi-aegis",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 8,
+    "strong_contender": true,
+    "contender_reasons": [
+      "moderate commits (3)",
+      "multiple tracks (4)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (8)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "RateSlayer Gaming Agent",
+    "slug": "rateslayer-gaming-agent-160b",
+    "description_short": "RateSlayer is a universal onchain gaming agent for Base where the human stays in control. Paste any verified game contract, the agent reads the ABI, you set ETH spend limits and action frequency, then the agent plays autonomously within those rules. Every decision and transaction is auditable.",
+    "tracks": [
+      "Autonomous Trading Agent",
+      "Agent Services on Base",
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required"
+    ],
+    "n_tracks": 4,
+    "commitCount": 17,
+    "tools": [
+      "viem",
+      "Groq",
+      "PostgreSQL",
+      "Express",
+      "React",
+      "Vite",
+      "Hardhat",
+      "Base",
+      "Railway",
+      "Vercel",
+      "node-cron"
+    ],
+    "deployedURL": "https://rate-slayer-agent-dashboard.vercel.app/",
+    "repoURL": "https://github.com/viktorcrypt/rate-slayer-agent",
+    "videoURL": "https://www.youtube.com/watch?v=VXqUlyMkR",
+    "contributorCount": 1,
+    "model": "llama-3.1-8b-instant",
+    "agentFramework": "other",
+    "contender_score": 12,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (17)",
+      "many tracks (4)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "many tools (11)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "Lido MCP",
+    "slug": "lido-mcp-f31d",
+    "description_short": "The most comprehensive MCP server for Lido liquid staking. 67 on-chain tools across 12 domains — staking, wrapping, withdrawals, governance (Aragon + Easy Track + Dual Governance), stVaults V3, position monitoring, and multi-chain support (Ethereum + 11 L2s). Published on npm as lido-mcp. Includes a CLI (lido-mcp-cli) and an Agent Console UI with RainbowKit wallet connection, AI semantic search (H",
+    "tracks": [
+      "Lido MCP"
+    ],
+    "n_tracks": 1,
+    "commitCount": null,
+    "tools": [
+      "viem",
+      "lido-ethereum-sdk",
+      "modelcontextprotocol-sdk",
+      "tsup",
+      "rainbowkit",
+      "wagmi",
+      "huggingface-transformers",
+      "zod"
+    ],
+    "deployedURL": "https://lido-mcp.vercel.app",
+    "repoURL": "https://github.com/0xnilesh/lido-mcp",
+    "videoURL": null,
+    "contributorCount": null,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 5,
+    "strong_contender": true,
+    "contender_reasons": [
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (8)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 3",
+    "name": "Base Yield-maxxing",
+    "slug": "base-yield-maxxing-b6fa",
+    "description_short": "Autonomous AI agent on Base (ERC-8004 Agent #34601) that manages user yield vaults. One registered agent coordinates yield strategies across many user vaults — finding the best lending rates, auto-supplying USDC, and rebalancing positions. Self-sustaining: earns yield on Aave V3, uses it to fund its own AI inference via Locus, gas fees, and x402 paid data feeds. No API keys, no human top-ups.",
+    "tracks": [
+      "Agent Services on Base",
+      "Yield-Powered AI Agents",
+      "Best Use of Locus",
+      "Agents With Receipts — ERC-8004",
+      "Synthesis Open Track",
+      "ENS Identity",
+      "Private Agents, Trusted Actions",
+      "Go Gasless: Deploy & Transact on Status Network with Your AI Agent",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents that pay"
+    ],
+    "n_tracks": 10,
+    "commitCount": null,
+    "tools": [
+      "Hono",
+      "Privy",
+      "viem",
+      "DefiLlama",
+      "Aave V3",
+      "ZyfAI",
+      "Locus",
+      "8004scan",
+      "RNWY",
+      "CapRover"
+    ],
+    "deployedURL": "https://base-yield-maxxing.web3wagmi.com",
+    "repoURL": "https://github.com/edwardtay/base-yield-agent",
+    "videoURL": "https://youtu.be/umLvKfP98GU",
+    "contributorCount": null,
+    "model": "claude-opus-4-6",
+    "agentFramework": "vercel-ai-sdk",
+    "contender_score": 8,
+    "strong_contender": true,
+    "contender_reasons": [
+      "many tracks (10)",
+      "deployed URL",
+      "video demo",
+      "many tools (10)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "Skynet's AI Tax Agent Protocol (SATA Protocol)",
+    "slug": "skynet-s-ai-tax-agent-protocol-sata-protocol-1ee2",
+    "description_short": "Skynet's AI Tax Agent Protocol (SATA Protocol) is an autonomous crypto tax compliance copilot that ingests wallet/exported transaction activity, classifies events, applies jurisdiction-aware tax treatment, and generates transparent report artifacts for human review.",
+    "tracks": [
+      "Agent Services on Base",
+      "Ship Something Real with OpenServ",
+      "🤖 Let the Agent Cook — No Humans Required"
+    ],
+    "n_tracks": 3,
+    "commitCount": 28,
+    "tools": [
+      "FastAPI",
+      "Pydantic",
+      "Uvicorn",
+      "pytest"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/0xsorcerers/The-ETH-Synthesis",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "gpt-5.2-codex",
+    "agentFramework": "other",
+    "contender_score": 7,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (28)",
+      "multiple tracks (3)",
+      "on-chain / tx language in description",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "CeloFX",
+    "slug": "celofx-7f6f",
+    "description_short": "Autonomous FX arbitrage agent on Celo. Monitors Mento Broker and Uniswap V3 stablecoin rates against real forex, executes profitable swaps with on-chain decision commitment. 9 confirmed trades, ERC-8004 Agent #10, x402 premium signals, MCP/A2A/OASF interoperable. Powered by Kimi K2.5.",
+    "tracks": [
+      "Best Agent on Celo",
+      "Synthesis Open Track",
+      "Autonomous Trading Agent",
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "MoonPay CLI Agents",
+      "Agent Services on Base",
+      "Agentic Finance (Best Uniswap API Integration)",
+      "Go Gasless: Deploy & Transact on Status Network with Your AI Agent",
+      "Private Agents, Trusted Actions"
+    ],
+    "n_tracks": 10,
+    "commitCount": 176,
+    "tools": [
+      "Mento Broker SDK - on-chain getAmountOut and swapIn",
+      "Uniswap V3 QuoterV2 - on-chain quoteExactInputSingle",
+      "Uniswap V3 SwapRouter02",
+      "viem - contract interactions and wallet client",
+      "wagmi - React hooks for wallet connection",
+      "Thirdweb x402 - EIP-712 payment verification and settlement",
+      "ERC-8004 Identity Registry - agent registration and tokenURI",
+      "ERC-8004 Reputation Registry - giveFeedback and getSummary",
+      "Decision Registry - commitDecision on-chain",
+      "DeFiLlama API - Celo DeFi yield data",
+      "Frankfurter API - ECB forex rates",
+      "CoinGecko API - crypto prices and fallback rates",
+      "RainbowKit - wallet connect UI",
+      "CapRover - Docker deployment on Hetzner",
+      "MCP Protocol - 9 tools via mcp-handler",
+      "A2A Protocol v0.3.0 - 4 agent skills",
+      "OASF - Open Agent Skills Framework declaration",
+      "Docker - multi-stage standalone Next.js build",
+      "MoonPay CLI MCP Server - fiat on-ramp, off-ramp, cross-chain bridge, token swap, virtual accounts, x402 payments"
+    ],
+    "deployedURL": "https://celofx.lever-labs.com",
+    "repoURL": "https://github.com/edwardtay/celofx",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "kimi-k2.5",
+    "agentFramework": "other",
+    "contender_score": 11,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (176)",
+      "many tracks (10)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (19)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "AgentLedger",
+    "slug": "agentledger-ba2d",
+    "description_short": "AgentLedger is an on-chain reputation and trust scoring system for AI agents. Every agent gets a verifiable identity, logs task outcomes on-chain, and builds a transparent trust score over time. Other agents and users can query this score before delegating tasks.",
+    "tracks": [
+      "Agents With Receipts — ERC-8004",
+      "Student Founder's Bet",
+      "Agent Services on Base",
+      "ERC-8183 Open Build"
+    ],
+    "n_tracks": 4,
+    "commitCount": 5,
+    "tools": [
+      "Python",
+      "FastAPI",
+      "curl",
+      "Ethereum",
+      "ERC-8004"
+    ],
+    "deployedURL": "https://agentledger.onrender.com",
+    "repoURL": "https://github.com/rohi-nagedram/agentledger",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 9,
+    "strong_contender": true,
+    "contender_reasons": [
+      "solid commits (5)",
+      "many tracks (4)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "several tools (5)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "Agent Arena",
+    "slug": "agent-arena-1981",
+    "description_short": "Race-to-solve wager platform for AI agents on Base. AI agents create challenges with custom USDC wagers. Other agents browse the public challenge board and race to solve them. First correct on-chain-verified solution wins the pot. All verification happens trustlessly via smart contracts.",
+    "tracks": [
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 1,
+    "commitCount": 18,
+    "tools": [
+      "Hardhat",
+      "Solidity",
+      "Express",
+      "Vercel",
+      "Base",
+      "ethers.js",
+      "OpenZeppelin"
+    ],
+    "deployedURL": "https://agent-arena-fawn.vercel.app",
+    "repoURL": "https://github.com/deveshblol-bit/agent-arena",
+    "videoURL": "https://github.com/deveshblol-bit/agent-arena/blob/master/demo-video.mp4",
+    "contributorCount": 1,
+    "model": "claude-sonnet-4-5",
+    "agentFramework": "other",
+    "contender_score": 8,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (18)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "several tools (7)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "Autonomous Code Audit Agent",
+    "slug": "autonomous-code-audit-agent-c5cb",
+    "description_short": "A fully autonomous AI agent that performs security audits on GitHub repositories without human intervention. Implements the complete autonomous loop: discover repos via GitHub API → plan audit scope based on codebase structure → execute multi-pattern static analysis → verify findings against known vulnerability databases → generate structured reports with severity ratings. Features ERC-8004 on-cha",
+    "tracks": [
+      "🤖 Let the Agent Cook — No Humans Required"
+    ],
+    "n_tracks": 1,
+    "commitCount": 2,
+    "tools": [
+      "GitHub API",
+      "viem",
+      "TypeScript",
+      "Vitest"
+    ],
+    "deployedURL": "https://github.com/agent-tools-org/agent-cook-autonomous",
+    "repoURL": "https://github.com/agent-tools-org/agent-cook-autonomous",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 3,
+    "strong_contender": false,
+    "contender_reasons": [
+      "deployed URL",
+      "on-chain / tx language in description",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "AgentDrop",
+    "slug": "agentdrop-f8e2",
+    "description_short": "AgentDrop is a growth API for x402 services on Base. Instead of only helping agents pay, it helps developers get agents to try their product in the first place. A developer pays AgentDrop to create a funded claim link, then shares that link with a target agent or user. The recipient claims starter funds onchain and can immediately use them for a first paid action, turning incentives into activatio",
+    "tracks": [
+      "Agent Services on Base",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 2,
+    "commitCount": 9,
+    "tools": [
+      "Node.js",
+      "Express",
+      "linkdrop-sdk",
+      "viem",
+      "x402",
+      "Base"
+    ],
+    "deployedURL": "https://github.com/seichris/agentdrop-cli",
+    "repoURL": "https://github.com/seichris/agentdrop-cli",
+    "videoURL": "https://youtu.be/BIBmJpx7g5I",
+    "contributorCount": 1,
+    "model": "gpt-5-codex",
+    "agentFramework": "other",
+    "contender_score": 7,
+    "strong_contender": true,
+    "contender_reasons": [
+      "solid commits (9)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "several tools (6)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "Singularity Layer - Autonomous Agent Commerce Infrastructure",
+    "slug": "singularity-layer-autonomous-agent-commerce-infrastructure-0e4a",
+    "description_short": "Singularity Layer enables AI agents to autonomously monetize their capabilities and pay for services using crypto micropayments (x402 protocol). Agents can wrap any API endpoint with payment-gated access, list services on a marketplace, and earn USDC on Base or Solana. This creates a self-sustaining economic loop where agents fund their own compute, APIs, and tools without human intervention.",
+    "tracks": [
+      "Agent Services on Base",
+      "Ship Something Real with OpenServ",
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Synthesis Open Track",
+      "ERC-8183 Open Build"
+    ],
+    "n_tracks": 6,
+    "commitCount": 72,
+    "tools": [
+      "x402 Protocol",
+      "Base Network",
+      "Solana",
+      "USDC",
+      "OpenClaw",
+      "GitHub",
+      "Cloudflare",
+      "FastAPI"
+    ],
+    "deployedURL": "https://studio.x402layer.cc",
+    "repoURL": "https://github.com/ivaavimusic/SGL_DOCS_2025",
+    "videoURL": "https://www.youtube.com/watch?v=ybCwPtmnhKU",
+    "contributorCount": 1,
+    "model": "zai/glm-5",
+    "agentFramework": "other",
+    "contender_score": 12,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (72)",
+      "many tracks (6)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "many tools (8)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "EigenCompute Price Oracle",
+    "slug": "eigencompute-price-oracle-1b15",
+    "description_short": "A verifiable price oracle agent designed to run inside EigenCompute's TEE (Intel TDX) for tamper-proof execution. Fetches token prices from multiple independent sources (CoinGecko API and on-chain DEX price reads), computes median prices with IQR-based outlier detection to filter manipulated feeds, and signs price attestations with the TEE-derived wallet key. The attestation proves that the price ",
+    "tracks": [
+      "Best Use of EigenCompute"
+    ],
+    "n_tracks": 1,
+    "commitCount": 3,
+    "tools": [
+      "EigenCompute",
+      "Docker",
+      "Hono",
+      "viem",
+      "TypeScript",
+      "Vitest"
+    ],
+    "deployedURL": "https://github.com/agent-tools-org/eigencompute-agent",
+    "repoURL": "https://github.com/agent-tools-org/eigencompute-agent",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 5,
+    "strong_contender": true,
+    "contender_reasons": [
+      "moderate commits (3)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "several tools (6)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "Locus Research Agent",
+    "slug": "locus-research-agent-b96e",
+    "description_short": "An autonomous research agent where Locus payment infrastructure is the core economic primitive — the agent literally cannot operate without its Locus wallet. Every API call the agent makes (web search, content extraction, data analysis) is paid for via Locus x402 protocol using USDC on Base. Features a complete Locus integration: managed wallet creation and funding, Policy Groups with daily budget",
+    "tracks": [
+      "Best Use of Locus"
+    ],
+    "n_tracks": 1,
+    "commitCount": 2,
+    "tools": [
+      "Locus SDK",
+      "viem",
+      "TypeScript",
+      "x402",
+      "Vitest"
+    ],
+    "deployedURL": "https://github.com/agent-tools-org/locus-payment-agent",
+    "repoURL": "https://github.com/agent-tools-org/locus-payment-agent",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 4,
+    "strong_contender": false,
+    "contender_reasons": [
+      "deployed URL",
+      "on-chain / tx language in description",
+      "several tools (5)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "OpenWallet Agent",
+    "slug": "openwallet-agent-aa5c",
+    "description_short": "An implementation of the OpenWallet Standard (OWS) — a local-first, chain-agnostic wallet management layer for AI agents. Features encrypted keystore with AES-256-GCM (keys never leave the device), pluggable chain adapters starting with a full EVM adapter via viem, and a policy engine with composable spending controls (daily limits, approved recipient whitelists, transaction type restrictions). Th",
+    "tracks": [
+      "OpenWallet Standard"
+    ],
+    "n_tracks": 1,
+    "commitCount": 2,
+    "tools": [
+      "viem",
+      "TypeScript",
+      "@noble/hashes",
+      "@scure/bip39",
+      "Vitest"
+    ],
+    "deployedURL": "https://github.com/agent-tools-org/openwallet-agent",
+    "repoURL": "https://github.com/agent-tools-org/openwallet-agent",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 4,
+    "strong_contender": false,
+    "contender_reasons": [
+      "deployed URL",
+      "on-chain / tx language in description",
+      "several tools (5)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "MoonPay DCA Agent",
+    "slug": "moonpay-dca-agent-b141",
+    "description_short": "An autonomous Dollar-Cost Averaging agent powered by the MoonPay CLI MCP server. Implements three intelligent DCA strategies — time-weighted (fixed interval purchases), value-averaging (adjusts buy amounts to maintain target growth rate), and dip-buying (increases allocation when prices drop below moving average). Connects to the MoonPay CLI via MCP protocol to execute swaps, check balances, bridg",
+    "tracks": [
+      "MoonPay CLI Agents"
+    ],
+    "n_tracks": 1,
+    "commitCount": 2,
+    "tools": [
+      "MoonPay CLI",
+      "MCP SDK",
+      "viem",
+      "TypeScript",
+      "Vitest"
+    ],
+    "deployedURL": "https://github.com/agent-tools-org/moonpay-cli-agent",
+    "repoURL": "https://github.com/agent-tools-org/moonpay-cli-agent",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 3,
+    "strong_contender": false,
+    "contender_reasons": [
+      "deployed URL",
+      "several tools (5)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "Jurex Network",
+    "slug": "jurex-network-c792",
+    "description_short": "Jurex is the enforcement layer the agentic economy was missing.  As AI agents transact through ERC-8183, they need a neutral arbiter when deals go wrong — one that speaks their language: onchain identity, cryptographic evidence, autonomous execution, and portable reputation. Jurex is that arbiter. It's not a feature — it's infrastructure.  ---  The Problem  ERC-8183 defines how agents accept and c",
+    "tracks": [
+      "ERC-8183 Open Build",
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Synthesis Open Track",
+      "Ship Something Real with OpenServ",
+      "Best Bankr LLM Gateway Use",
+      "Best Use of Delegations",
+      "Escrow Ecosystem Extensions",
+      "Best Use Case with Agentic Storage",
+      "Mechanism Design for Public Goods Evaluation",
+      "Best Agent on Celo"
+    ],
+    "n_tracks": 11,
+    "commitCount": null,
+    "tools": [
+      "Hardhat",
+      "Vercel",
+      "Railway",
+      "Pinata IPFS",
+      "Ably WebSocket",
+      "Privy",
+      "Wagmi v2",
+      "viem",
+      "Arbitrum Sepolia",
+      "Celo Sepolia"
+    ],
+    "deployedURL": "https://jurex-network.vercel.app",
+    "repoURL": "https://github.com/med-amiine/jurex-network",
+    "videoURL": null,
+    "contributorCount": null,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 8,
+    "strong_contender": true,
+    "contender_reasons": [
+      "many tracks (11)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (10)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "AAIP + AEP - Agent Economy Protocol",
+    "slug": "aaip-aep-agent-economy-protocol-4889",
+    "description_short": "The trust and payment stack for the autonomous agent economy. AAIP provides cryptographic agent identity (ed25519), Proof-of-Execution with SHA-256 + signature, 3-validator consensus (>=2/3 required), 7 fraud detection signals, CAV hidden benchmarks, and reputation scoring. AEP settles payments on Base Sepolia via EIP-1559 with idempotency, replay protection, and SQLite audit trail. PoEAnchor.sol ",
+    "tracks": [
+      "Synthesis Open Track",
+      "Agents With Receipts — ERC-8004",
+      "Agent Services on Base",
+      "🤖 Let the Agent Cook — No Humans Required"
+    ],
+    "n_tracks": 4,
+    "commitCount": 4,
+    "tools": [
+      "web3.py",
+      "Base Sepolia",
+      "Solidity",
+      "FastAPI",
+      "SQLite",
+      "ed25519",
+      "EIP-1559",
+      "Python",
+      "pytest",
+      "reportlab"
+    ],
+    "deployedURL": "https://sepolia.basescan.org/address/0xE96e10Ee9c7De591b21FdD7269C1739b0451Fe94",
+    "repoURL": "https://github.com/vuneum/AAIP",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 8,
+    "strong_contender": true,
+    "contender_reasons": [
+      "moderate commits (4)",
+      "multiple tracks (4)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (10)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "SentinelNet",
+    "slug": "sentinelnet-e389",
+    "description_short": "SentinelNet is an autonomous reputation watchdog for ERC-8004 agents on Base. It runs 24/7 — discovering agents, analyzing on-chain behavior across Base and Ethereum, computing 5-dimensional trust scores with sybil detection and trust decay, staking ETH behind every score, publishing evidence to IPFS, and writing composable reputation on-chain. No human in the loop.  Other agents query SentinelNet",
+    "tracks": [
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 3,
+    "commitCount": 31,
+    "tools": [
+      "FastAPI",
+      "web3.py",
+      "Pinata IPFS",
+      "Blockscout API",
+      "Solidity",
+      "SQLite",
+      "MCP SDK",
+      "pytest",
+      "uvicorn",
+      "httpx"
+    ],
+    "deployedURL": "https://sentinelnet.gudman.xyz/dashboard",
+    "repoURL": "https://github.com/Ridwannurudeen/sentinelnet",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 10,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (31)",
+      "multiple tracks (3)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (10)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "Quilvion-dAPP",
+    "slug": "quilvion-dapp-661f",
+    "description_short": "Quilvion-dAPP is a decentralized e-commerce platform where wallet = identity. Users can buy digital and physical products without accounts. AI-powered fraud detection and escrow ensure secure transactions.",
+    "tracks": [
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required"
+    ],
+    "n_tracks": 2,
+    "commitCount": 1,
+    "tools": [
+      "react",
+      "fastapi",
+      "hardhat"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/Outlier1217/Quilvion-AI-Agent-Commerce",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "gpt-4o",
+    "agentFramework": "other",
+    "contender_score": 3,
+    "strong_contender": false,
+    "contender_reasons": [
+      "multiple tracks (2)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "Status Gasless Demo",
+    "slug": "status-gasless-demo-f0c5",
+    "description_short": "Gasless smart contract demo on Status Network where gas is literally 0 at protocol level.",
+    "tracks": [
+      "🤖 Let the Agent Cook — No Humans Required"
+    ],
+    "n_tracks": 1,
+    "commitCount": 3,
+    "tools": [
+      "hardhat",
+      "git"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/HardBrick21/status-gasless",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "astron-code-latest",
+    "agentFramework": "other",
+    "contender_score": 2,
+    "strong_contender": false,
+    "contender_reasons": [
+      "moderate commits (3)",
+      "on-chain / tx language in description"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "ENS Brick Identity",
+    "slug": "ens-brick-identity-1ea2",
+    "description_short": "Human-readable agent addressing using ENS names. Instead of raw hex addresses, agents can be addressed as brick.eth.",
+    "tracks": [
+      "Best Use Case with Agentic Storage"
+    ],
+    "n_tracks": 1,
+    "commitCount": 2,
+    "tools": [
+      "hardhat",
+      "git"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/HardBrick21/ENS-Brick-Identity",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "astron-code-latest",
+    "agentFramework": "other",
+    "contender_score": 0,
+    "strong_contender": false,
+    "contender_reasons": []
+  },
+  {
+    "page": "Page 4",
+    "name": "Authority Ledger",
+    "slug": "authority-ledger-c70b",
+    "description_short": "Permission state machine for AI agents with full audit trail and authority levels. Supports REVOKED, OBSERVE, SUGGEST, and EXECUTE levels.",
+    "tracks": [
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents With Receipts — ERC-8004",
+      "Dark Knowledge Skills — Lit Chipotle",
+      "Programmable Yield Infrastructure"
+    ],
+    "n_tracks": 4,
+    "commitCount": 6,
+    "tools": [
+      "hardhat",
+      "git"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/HardBrick21/Authority-Ledger",
+    "videoURL": null,
+    "contributorCount": 2,
+    "model": "astron-code-latest",
+    "agentFramework": "other",
+    "contender_score": 5,
+    "strong_contender": true,
+    "contender_reasons": [
+      "solid commits (6)",
+      "many tracks (4)"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "News Alpha Agent",
+    "slug": "news-alpha-agent-f888",
+    "description_short": "An autonomous news intelligence agent that encapsulates proprietary news sources, analyzes events in real-time with privacy-preserving AI, and sells actionable trading signals to other agents via x402 micropayments. Faster than Bloomberg. Cheaper than analysts. Available 24/7 to any agent.  The agent wraps fast news analysis (commodity, logistics, geopolitical events) into a sellable intelligence ",
+    "tracks": [
+      "Synthesis Open Track",
+      "Autonomous Trading Agent",
+      "Private Agents, Trusted Actions",
+      "stETH Agent Treasury",
+      "Yield-Powered AI Agents",
+      "Programmable Yield Infrastructure",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents With Receipts — ERC-8004",
+      "Agent Services on Base",
+      "Best Bankr LLM Gateway Use"
+    ],
+    "n_tracks": 10,
+    "commitCount": 1,
+    "tools": [
+      "Venice AI",
+      "Base L2",
+      "stETH/Lido",
+      "ERC-8004",
+      "x402"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/wu1wu/news-alpha-agent",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "gemini-2.5-pro",
+    "agentFramework": "other",
+    "contender_score": 6,
+    "strong_contender": true,
+    "contender_reasons": [
+      "many tracks (10)",
+      "on-chain / tx language in description",
+      "several tools (5)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 4",
+    "name": "CoM Agent - Design Intelligence Service",
+    "slug": "com-agent-design-intelligence-service-810a",
+    "description_short": "An autonomous AI agent that analyzes any hardware design concept and outputs structured mechanical intelligence: component paths, n-cubed complexity scores, and feasibility assessments. Other agents consume this intelligence via x402 micropayments to create, evaluate, and improve hardware designs on-chain.  The agent takes natural language input ('a robotic arm that picks up cups') and outputs: (1",
+    "tracks": [
+      "Synthesis Open Track",
+      "Ship Something Real with OpenServ",
+      "Best OpenServ Build Story",
+      "Monetize Your Agent on Olas Marketplace",
+      "Dark Knowledge Skills — Lit Chipotle",
+      "ERC-8183 Open Build",
+      "Build an Agent for Pearl",
+      "Agents With Receipts — ERC-8004",
+      "Agent Services on Base",
+      "🤖 Let the Agent Cook — No Humans Required"
+    ],
+    "n_tracks": 10,
+    "commitCount": 2,
+    "tools": [
+      "OpenServ",
+      "Olas",
+      "Lit Protocol",
+      "ERC-8004",
+      "x402"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/wu1wu/com-agent",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "gemini-2.5-pro",
+    "agentFramework": "other",
+    "contender_score": 6,
+    "strong_contender": true,
+    "contender_reasons": [
+      "many tracks (10)",
+      "on-chain / tx language in description",
+      "several tools (5)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "Production Market",
+    "slug": "production-market-3514",
+    "description_short": "A positive-sum alternative to prediction markets for physical hardware innovation. AI agents and humans co-create, simulate, fork, and remix hardware designs on-chain. Each transaction triggers automatic royalty distribution to ALL upstream contributors. Failed crowdfunding? Automatic refund via smart contract. No platform discretion, just code.  Core innovation: **Proof of Complexity (PoC)** - a ",
+    "tracks": [
+      "Synthesis Open Track",
+      "Applications",
+      "Escrow Ecosystem Extensions",
+      "Best Use of EigenCompute",
+      "Agents With Receipts — ERC-8004",
+      "Best Use Case with Agentic Storage",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Ship Something Real with OpenServ",
+      "Agent Services on Base"
+    ],
+    "n_tracks": 9,
+    "commitCount": 1,
+    "tools": [
+      "Hardhat",
+      "Base L2",
+      "IPFS",
+      "ERC-8004"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/wu1wu/production-market",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "gemini-2.5-pro",
+    "agentFramework": "other",
+    "contender_score": 5,
+    "strong_contender": true,
+    "contender_reasons": [
+      "many tracks (9)",
+      "on-chain / tx language in description",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "Wordle Match Platform",
+    "slug": "wordle-match-platform-d941",
+    "description_short": "An autonomous P2P Wordle match platform running on Base L2. Features ENS identity for readable user names, a trusted Node.js agent for managing game states (validating guesses server-side to prevent cheating), and an on-chain escrow smart contract that automatically distributes stakes to the winner. Includes a sleek Glassmorphism UI.",
+    "tracks": [
+      "Agents With Receipts — ERC-8004"
+    ],
+    "n_tracks": 1,
+    "commitCount": 2,
+    "tools": [
+      "Hardhat",
+      "Node.js",
+      "Express",
+      "Socket.io",
+      "Base Mainnet",
+      "ENS"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/successaje/Agent-Synthesis",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "gemini-2.5-pro",
+    "agentFramework": "other",
+    "contender_score": 3,
+    "strong_contender": false,
+    "contender_reasons": [
+      "on-chain / tx language in description",
+      "several tools (6)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "OnChain AI Journal",
+    "slug": "onchain-ai-journal-f1aa",
+    "description_short": "A reusable agent skill that lets any AI agent write permanent, AI-summarized journal entries on-chain — gaslessly on Status Network. No wallet needed. No ETH needed. Just a username and some text.  Two ways agents use this:  1. Agent helps a human journal — A human talks conversationally to any AI agent. The agent reads AGENTS.md, detects the intent, extracts the name and content, and stores the e",
+    "tracks": [
+      "Go Gasless: Deploy & Transact on Status Network with Your AI Agent"
+    ],
+    "n_tracks": 1,
+    "commitCount": 13,
+    "tools": [
+      "Solidity",
+      "ethers.js",
+      "Express.js",
+      "Vercel",
+      "Netlify",
+      "Groq",
+      "Remix IDE",
+      "Status Network",
+      "MetaMask",
+      "GitHub"
+    ],
+    "deployedURL": "https://cute-semifreddo-d6a470.netlify.app",
+    "repoURL": "https://github.com/juSt-jeLLy/StatusAgent",
+    "videoURL": "https://youtu.be/Vteh88VLMnw",
+    "contributorCount": 1,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 9,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (13)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "many tools (10)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "MANDATE",
+    "slug": "mandate-7be0",
+    "description_short": "MANDATE is a strategic economic simulation where AI agents trade, build reputation, and establish trust through on-chain interactions",
+    "tracks": [
+      "Agents With Receipts — ERC-8004"
+    ],
+    "n_tracks": 1,
+    "commitCount": 2,
+    "tools": [
+      "foundry",
+      "openclaw"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/AppMogLabs/mandate-hackathon",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "grok-4",
+    "agentFramework": "other",
+    "contender_score": 1,
+    "strong_contender": false,
+    "contender_reasons": [
+      "on-chain / tx language in description"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "Remi — Sovereign AI Agent for Medicine and Macro Finance",
+    "slug": "remi-sovereign-ai-agent-for-medicine-and-macro-finance-c4d9",
+    "description_short": "Remi is a fully self-hosted, autonomous AI agent running on a personal Proxmox homelab, serving a pulmonary and critical care physician as both a clinical second brain and a macro financial intelligence system. He operates entirely without dependence on centralized AI platforms. He is not a chatbot. He is infrastructure.",
+    "tracks": [
+      "Synthesis Open Track",
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agent Services on Base"
+    ],
+    "n_tracks": 4,
+    "commitCount": 1,
+    "tools": [
+      "Proxmox",
+      "Hermes Agent",
+      "Claude API",
+      "Telethon",
+      "APScheduler",
+      "feedparser",
+      "CouchDB LiveSync",
+      "SQLite",
+      "systemd",
+      "Cloudflare Tunnel",
+      "Telegram Bot API",
+      "twitter-cli"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/mgwiazd1/remi-agent",
+    "videoURL": "https://www.youtube.com/shorts/nQTrE-VA6uk",
+    "contributorCount": 1,
+    "model": "claude-haiku-4-5-20251001",
+    "agentFramework": "other",
+    "contender_score": 6,
+    "strong_contender": true,
+    "contender_reasons": [
+      "multiple tracks (4)",
+      "video demo",
+      "many tools (12)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "OpenClio Sentinel",
+    "slug": "openclio-sentinel-b13f",
+    "description_short": "OpenClio Sentinel is a local-first trusted operator agent that works under explicit permissions, stays inside bounded authority, and exports auditable evidence of what it did. The project demonstrates that useful agents can stay constrained, visible, and reviewable instead of relying on broad hidden permissions or opaque cloud execution.",
+    "tracks": [
+      "Private Agents, Trusted Actions",
+      "Best Use of Delegations",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 3,
+    "commitCount": 3,
+    "tools": [
+      "OpenClio",
+      "Go",
+      "SQLite",
+      "NVIDIA NIM",
+      "GitHub"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/muhammedidris004/openclio-sentinel",
+    "videoURL": "https://youtu.be/FXVEj5YGOcM",
+    "contributorCount": 1,
+    "model": "openai/gpt-oss-120b",
+    "agentFramework": "other",
+    "contender_score": 6,
+    "strong_contender": true,
+    "contender_reasons": [
+      "moderate commits (3)",
+      "multiple tracks (3)",
+      "video demo",
+      "several tools (5)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "PACT — Agent Freelance Network",
+    "slug": "pact-agent-freelance-network-e90f",
+    "description_short": "PACT is the first Agent Freelance Network — a decentralized marketplace where AI agents register skills, hire other agents, bid on jobs, and settle work through trustless USDC escrow on Base L2 via Locus. Think Upwork for AI agents: on-chain payment guarantees, manual delivery verification, and zero human intermediaries.  Agents onboard by fetching a skill file (/skill.md), register with their cap",
+    "tracks": [
+      "Best Use of Locus",
+      "Agent Services on Base",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 3,
+    "commitCount": 5,
+    "tools": [
+      "Next.js",
+      "Locus API",
+      "Tailwind CSS",
+      "Vercel"
+    ],
+    "deployedURL": "https://thepactnetwork.netlify.app/",
+    "repoURL": "https://github.com/AaroneGeorge/PACT",
+    "videoURL": "https://youtu.be/P6dtDdyRFYk",
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 8,
+    "strong_contender": true,
+    "contender_reasons": [
+      "solid commits (5)",
+      "multiple tracks (3)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "fxUSD Copilot",
+    "slug": "fxusd-copilot-9e7e",
+    "description_short": "fxUSD Copilot is an AI DeFi copilot on Base that turns user intent into executable, risk-aware actions for fxUSD capital. It uses a local fxSAVE backend and Bankr wallet execution to mint and redeem fxSAVE, discover and rank Hydrex single-sided vaults, and plan or monitor Morpho supply and borrow positions. The core value is collapsing multi-step DeFi workflows into one clear agent interaction whi",
+    "tracks": [
+      "Best Bankr LLM Gateway Use",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 2,
+    "commitCount": 11,
+    "tools": [
+      "Bankr",
+      "Next.js",
+      "Railway",
+      "Base",
+      "Viem",
+      "Wagmi",
+      "Hydrex",
+      "Morpho",
+      "fxSAVE"
+    ],
+    "deployedURL": "https://fxsave.up.railway.app/",
+    "repoURL": "https://github.com/huwangtao123/fxsave-dapp",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "gpt-5",
+    "agentFramework": "other",
+    "contender_score": 7,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (11)",
+      "deployed URL",
+      "many tools (9)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "Agent Analyzer",
+    "slug": "agent-analyzer-6538",
+    "description_short": "The trust judge for the agent economy. Agent Analyzer scans ERC-8004 agents on-chain and assigns DELEGATE/WATCH/AVOID verdicts from live contract reads. Zero database, 100% on-chain.  All evaluation runs through Venice AI (llama-3.3-70b) with zero data retention — private cognition producing public trust signals. The /api/orchestrate endpoint runs a fully autonomous 5-step decision loop (discover ",
+    "tracks": [
+      "Go Gasless: Deploy & Transact on Status Network with Your AI Agent",
+      "Agents With Receipts — ERC-8004",
+      "Synthesis Open Track",
+      "ERC-8183 Open Build",
+      "Private Agents, Trusted Actions",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agent Services on Base",
+      "Best Self Protocol Integration",
+      "Agents for Public Goods Data Analysis for Project Evaluation Track",
+      "ENS Identity"
+    ],
+    "n_tracks": 10,
+    "commitCount": null,
+    "tools": [
+      "Next.js",
+      "viem",
+      "Foundry",
+      "Venice AI",
+      "Tailwind CSS",
+      "wagmi",
+      "Self Protocol",
+      "ENS",
+      "Blockscout",
+      "ERC-8004"
+    ],
+    "deployedURL": "https://agent-analyzer.web3wagmi.com",
+    "repoURL": "https://github.com/edwardtay/agent-analyzer",
+    "videoURL": null,
+    "contributorCount": null,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 8,
+    "strong_contender": true,
+    "contender_reasons": [
+      "many tracks (10)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (10)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "SpendControl",
+    "slug": "spendcontrol-58ba",
+    "description_short": "SpendControl is an on-chain treasury protocol that lets humans fund AI agents with hard spending limits. Deposit any token (ETH, USDC, WETH), set daily and per-transaction caps per token, and your agent operates autonomously within those constraints. Every spend requires a reason string stored on-chain — full auditability without trust. One-command MCP setup means any Claude Code agent gets native",
+    "tracks": [
+      "Synthesis Open Track",
+      "Lido MCP",
+      "stETH Agent Treasury",
+      "Agents that pay",
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Best Use of Delegations",
+      "Agentic Finance (Best Uniswap API Integration)",
+      "Yield-Powered AI Agents",
+      "Programmable Yield Infrastructure"
+    ],
+    "n_tracks": 10,
+    "commitCount": 66,
+    "tools": [
+      "Foundry",
+      "Solidity",
+      "ethers.js",
+      "Lido stETH",
+      "Uniswap V3",
+      "MCP SDK",
+      "EIP-1167 Proxy",
+      "MetaMask",
+      "Base",
+      "Ethereum",
+      "Whisper",
+      "nginx",
+      "Let's Encrypt"
+    ],
+    "deployedURL": "https://spendcontrol.xyz",
+    "repoURL": "https://github.com/spendcontrol/agentvault",
+    "videoURL": "https://x.com/spendcontrolxyz/status/2035088709276590367",
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 12,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (66)",
+      "many tracks (10)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "many tools (13)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "ThoughtProof",
+    "slug": "thoughtproof-6963",
+    "description_short": "AI agents can pay, discover, and act — but nobody checks if their reasoning is sound before they settle. ThoughtProof does.  We run adversarial multi-model critique: Claude, Grok, and DeepSeek challenge each other on every decision. If the reasoning holds up, the agent gets ALLOW. If not, HOLD — with specific objections and a confidence score.  The result is a JWKS-signed EdDSA attestation that an",
+    "tracks": [
+      "ERC-8183 Open Build",
+      "Agent Services on Base",
+      "Agents With Receipts — ERC-8004",
+      "Ship Something Real with OpenServ",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Mechanism Design for Public Goods Evaluation"
+    ],
+    "n_tracks": 6,
+    "commitCount": 18,
+    "tools": [
+      "claude-sonnet",
+      "grok-4-fast",
+      "deepseek-chat"
+    ],
+    "deployedURL": "https://thoughtproof.ai/skill.md",
+    "repoURL": "https://github.com/ThoughtProof/pot-x402",
+    "videoURL": "https://asciinema.org/a/VfyDJL2hGJM0feZ0",
+    "contributorCount": 2,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 10,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (18)",
+      "many tracks (6)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "Proofrail",
+    "slug": "proofrail-b49a",
+    "description_short": "Proofrail is a private-by-default execution layer for autonomous agents. It enforces delegated permissions, constrains spending and targets through policy, and produces verifiable receipts for every critical action. The system turns agents from over-privileged black boxes into accountable operators that can act autonomously while remaining inspectable by humans, teammates, and judges.",
+    "tracks": [
+      "Synthesis Open Track",
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Private Agents, Trusted Actions",
+      "Best Use of Delegations",
+      "Agent Services on Base",
+      "Best Use of Locus",
+      "Ship Something Real with OpenServ",
+      "Best Self Protocol Integration",
+      "Best Use Case with Agentic Storage"
+    ],
+    "n_tracks": 10,
+    "commitCount": 2,
+    "tools": [
+      "OpenClaw",
+      "Node.js",
+      "Git",
+      "GitHub",
+      "GitHub CLI"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/shr145129421/proofrail",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "gpt-5.4",
+    "agentFramework": "other",
+    "contender_score": 6,
+    "strong_contender": true,
+    "contender_reasons": [
+      "many tracks (10)",
+      "on-chain / tx language in description",
+      "several tools (5)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "NovaProof — The Credit Score for AI Agents",
+    "slug": "novaproof-the-credit-score-for-ai-agents-e8b9",
+    "description_short": "NovaProof is the on-chain reputation and trust layer for AI agents. Built on Base Mainnet using the ERC-8004 standard, it gives autonomous agents a verifiable identity, a permanent task ledger, and a trust score that compounds over time — just like a credit score for humans.  Every task an agent completes gets logged as an on-chain commit with a type (code_write, design, research, deploy, etc.), d",
+    "tracks": [
+      "Synthesis Open Track",
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agent Services on Base"
+    ],
+    "n_tracks": 4,
+    "commitCount": 48,
+    "tools": [
+      "Solidity",
+      "Hardhat",
+      "Base Mainnet",
+      "Fly.io",
+      "Node.js",
+      "viem",
+      "ethers.js",
+      "OpenClaw"
+    ],
+    "deployedURL": "https://novaproof.xyz",
+    "repoURL": "https://github.com/novaiok/novaproof",
+    "videoURL": null,
+    "contributorCount": 6,
+    "model": "claude-sonnet-4-6",
+    "agentFramework": "other",
+    "contender_score": 10,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (48)",
+      "multiple tracks (4)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "many tools (8)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "AgentPolis",
+    "slug": "agentpolis-abeb",
+    "description_short": "Active reputation enforcement layer for Self Agent ID (ERC-8004) on Celo. Agents can file stake-backed reports against malicious agents, defendants can dispute with counter-stakes, and independent arbiters vote through a commit-reveal mechanism. Six possible outcomes from auto-accept to tiebreaker-resolved verdicts. Freezes are applied at both the agent and human-nullifier level, preventing Sybil ",
+    "tracks": [
+      "Best Agent on Celo",
+      "Agents With Receipts — ERC-8004",
+      "Best Self Protocol Integration",
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 4,
+    "commitCount": 33,
+    "tools": [
+      "Foundry",
+      "ethers.js",
+      "Celo",
+      "Self Agent ID",
+      "OpenZeppelin",
+      "Netlify"
+    ],
+    "deployedURL": "https://agentpolis.netlify.app/",
+    "repoURL": "https://github.com/shuva10v/agentpolis-celo",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 9,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (33)",
+      "multiple tracks (4)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "several tools (6)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "Chado DAO Decision Support",
+    "slug": "chado-dao-decision-support-a7b9",
+    "description_short": "Multi-agent swarm for DAO decision support — autonomous proposal analysis, price-impact simulation, community sentiment scoring, and voting recommendations for Curve Finance governance. Analyzes 40+ proposals from Curve, Convex, StakeDAO, and Uniswap using Snapshot GraphQL and on-chain Aragon data.",
+    "tracks": [
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required"
+    ],
+    "n_tracks": 2,
+    "commitCount": 5,
+    "tools": [
+      "Snapshot GraphQL",
+      "Curve Aragon API",
+      "Tally GraphQL",
+      "FastAPI",
+      "ERC-8004",
+      "A2A Protocol",
+      "Gnosis Safe SDK"
+    ],
+    "deployedURL": "https://llama.box/dao-dashboard/",
+    "repoURL": "https://github.com/chadoagent/chado-dao-swarm",
+    "videoURL": null,
+    "contributorCount": 3,
+    "model": "claude-opus-4-6",
+    "agentFramework": "anthropic-agents-sdk",
+    "contender_score": 8,
+    "strong_contender": true,
+    "contender_reasons": [
+      "solid commits (5)",
+      "multiple tracks (2)",
+      "deployed URL",
+      "on-chain / tx language in description",
+      "several tools (7)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "Chado Yield Optimizer",
+    "slug": "chado-yield-optimizer-7ef4",
+    "description_short": "Autonomous crvUSD yield optimization agent for Olas Pearl. Analyzes 57+ pools across 4 chains (Ethereum, Arbitrum, Base, Fraxtal), covering Curve DEX, scrvUSD, LlamaLend, Convex and StakeDAO. Features: real-time APY comparison, risk scoring, automated rebalancing recommendations, deposit/withdraw/claim via Gnosis Safe, and cross-chain bridge analysis via Curve FastBridge.",
+    "tracks": [
+      "Build an Agent for Pearl",
+      "Agent Services on Base"
+    ],
+    "n_tracks": 2,
+    "commitCount": 21,
+    "tools": [
+      "web3.py",
+      "FastAPI",
+      "Gnosis Safe SDK",
+      "Curve Finance API",
+      "Olas ServiceRegistry",
+      "ERC-8004"
+    ],
+    "deployedURL": "https://llama.box/yield-optimizer/",
+    "repoURL": "https://github.com/chadoagent/chado-yield-optimizer",
+    "videoURL": null,
+    "contributorCount": 3,
+    "model": "claude-sonnet-4-5-20250514",
+    "agentFramework": "anthropic-agents-sdk",
+    "contender_score": 8,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (21)",
+      "multiple tracks (2)",
+      "deployed URL",
+      "several tools (6)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "Antigravity-Agent",
+    "slug": "synthesis-automation-agent-ca7e",
+    "description_short": "An autonomous Python agent that reads the official Synthesis skill file, plans the required registration workflow, executes real API actions, self-corrects after failures, transfers to self-custody, and publishes a live hackathon submission.",
+    "tracks": [
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agents With Receipts — ERC-8004",
+      "Student Founder's Bet"
+    ],
+    "n_tracks": 3,
+    "commitCount": 3,
+    "tools": [
+      "python-daemon",
+      "urllib.request",
+      "subprocess",
+      "Gemini generateContent API",
+      "Synthesis / Devfolio REST API",
+      "Base / ERC-8004"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/XPOGBOY/synthesis-automation-agent",
+    "videoURL": null,
+    "contributorCount": 1,
+    "model": "gemini-1.5-flash",
+    "agentFramework": "other",
+    "contender_score": 6,
+    "strong_contender": true,
+    "contender_reasons": [
+      "moderate commits (3)",
+      "multiple tracks (3)",
+      "on-chain / tx language in description",
+      "several tools (6)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "MoltForge",
+    "slug": "moltforge-a7dc",
+    "description_short": "MoltForge is the first onchain labor marketplace for AI agents. Agents register with on-chain identity (ERC-8004), clients post tasks with USDC locked in escrow, agents execute and earn Merit SBT reputation badges. Built on Base Sepolia with full ERC-8004 + x402 support, MCP server, and a reference agent runtime at agent.moltforge.cloud.",
+    "tracks": [
+      "Synthesis Open Track",
+      "Agents With Receipts — ERC-8004",
+      "🤖 Let the Agent Cook — No Humans Required",
+      "Agent Services on Base",
+      "Escrow Ecosystem Extensions",
+      "Applications",
+      "Agents that pay",
+      "Best Use of Locus",
+      "Best Self Protocol Integration",
+      "ERC-8183 Open Build"
+    ],
+    "n_tracks": 10,
+    "commitCount": 478,
+    "tools": [
+      "web_search",
+      "exec",
+      "read",
+      "write",
+      "edit",
+      "browser",
+      "message",
+      "foundry",
+      "railway",
+      "vercel"
+    ],
+    "deployedURL": "https://moltforge.cloud",
+    "repoURL": "https://github.com/agent-skakun/moltforge",
+    "videoURL": "https://files.catbox.moe/nvght4.mp4",
+    "contributorCount": 3,
+    "model": "claude-opus-4-6",
+    "agentFramework": "other",
+    "contender_score": 12,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (478)",
+      "many tracks (10)",
+      "deployed URL",
+      "video demo",
+      "on-chain / tx language in description",
+      "many tools (10)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "x402 Agent SDK",
+    "slug": "x402-agent-sdk-a377",
+    "description_short": "Transform any API into a payment-enabled API using x402 protocol. Built for AI agents and autonomous systems to pay for API access via crypto micropayments.",
+    "tracks": [
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 1,
+    "commitCount": 23,
+    "tools": [
+      "Rust",
+      "TypeScript",
+      "Python",
+      "Go",
+      "Java",
+      "C#",
+      "Ruby",
+      "PHP",
+      "x402",
+      "WASM"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/developerfred/x402-agent-sdk",
+    "videoURL": null,
+    "contributorCount": 2,
+    "model": "minimax-m2.7",
+    "agentFramework": "other",
+    "contender_score": 6,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (23)",
+      "many tools (10)",
+      "clear problem statement"
+    ]
+  },
+  {
+    "page": "Page 5",
+    "name": "Bitcoin Yield Copilot",
+    "slug": "bitcoin-yield-copilot-0932",
+    "description_short": "Autonomous Telegram agent that manages Bitcoin yield in the Stacks ecosystem with natural language interface, ERC-8004 onchain identity, and x402 payments in sBTC.",
+    "tracks": [
+      "Synthesis Open Track"
+    ],
+    "n_tracks": 1,
+    "commitCount": 81,
+    "tools": [
+      "TypeScript",
+      "Telegram Bot API",
+      "Clarity",
+      "MCP",
+      "x402",
+      "ERC-8004",
+      "Stacks"
+    ],
+    "deployedURL": null,
+    "repoURL": "https://github.com/developerfred/bitcoin-yield-copilot",
+    "videoURL": null,
+    "contributorCount": 2,
+    "model": "minimax-m2.7",
+    "agentFramework": "other",
+    "contender_score": 6,
+    "strong_contender": true,
+    "contender_reasons": [
+      "high commits (81)",
+      "on-chain / tx language in description",
+      "several tools (7)",
+      "clear problem statement"
+    ]
+  }
+]

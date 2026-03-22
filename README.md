@@ -113,22 +113,22 @@ LLM Output
     riskScore ∈ [1-10]
     action ∈ {buy, sell, hold}
     percentage ∈ [0-100]
-    max 10% per trade
+    max trade % configurable (default 10%, set MAX_TRADE_PERCENT)
     │
     ▼
 [ScopedDelegation - Solidity]
-    maxAmountPerTx
-    dailyLimit
-    allowedTokens[]
-    allowedTargets[]
-    expiryTimestamp
-    revoke()
+    maxAmountPerTx (user-defined at deploy)
+    dailyLimit (user-defined at deploy)
+    allowedTokens[] (user-defined at deploy)
+    allowedTargets[] (user-defined at deploy)
+    expiryTimestamp (user-defined at deploy)
+    revoke() (instant, anytime)
     │
     ▼
 Execution (or rejection)
 ```
 
-Two independent safety layers. The TypeScript layer catches hallucinations. The Solidity layer enforces spending limits on-chain even if the TypeScript layer is bypassed.
+Two independent safety layers with user-configurable limits at every level. The TypeScript layer catches hallucinations (trade cap adjustable via `MAX_TRADE_PERCENT` env var). The Solidity layer enforces spending limits on-chain even if the TypeScript layer is bypassed — and those limits are set by the user when they deploy the ScopedDelegation contract, not hardcoded by the agent.
 
 ### Python Execution Sandbox
 
@@ -136,10 +136,10 @@ The LLM writes Python code for statistical analysis. That code runs in a sandbox
 
 - **Stripped environment:** The subprocess gets only `PATH`, `HOME=/tmp`, and Python encoding vars. No access to `WALLET_PRIVATE_KEY`, `VENICE_API_KEY`, or any `.env` variables.
 - **Working directory:** Isolated `/tmp` directory, not the project root.
-- **Blocked patterns:** Code containing `os.environ`, `subprocess`, `open('...`)`, `__import__`, or references to secret variable names is rejected before execution.
+- **Pattern blocking:** Code containing `os.environ`, `subprocess`, `open('...')`, `__import__`, or references to secret variable names is rejected before execution.
 - **Timeout:** 30 seconds max, output capped at 50KB.
 
-This prevents the LLM from writing code that exfiltrates the session key or reads sensitive files on the host.
+**Honest assessment:** The pattern blocking is regex-based and bypassable by a sufficiently clever obfuscation (e.g., `getattr`, string concatenation). It catches accidental leakage and naive attacks, not a determined adversary. The real protection comes from the stripped environment — even if the regex is bypassed, there are no secrets in the subprocess's env vars to read. For production deployments, the EigenCompute TEE is the primary shield: the Python subprocess runs inside the enclave where the host operator cannot inspect or modify the environment.
 
 ### Why EigenCompute (TEE) Still Matters
 
@@ -176,13 +176,15 @@ This section exists because honesty matters more than marketing.
 
 2. **CoinGecko queries are not private.** When the agent fetches price history, CoinGecko sees which tokens are queried (but not which wallet is being analyzed).
 
-3. **Uniswap routing exposes trade intent.** If delegated execution is enabled, the Uniswap API receives the swap parameters before execution. This is a known trade-off — private inference does not mean private execution.
+3. **Uniswap routing exposes trade intent.** If delegated execution is enabled, the Uniswap API receives the swap parameters before execution. This is the Achilles' heel — private inference does not mean private execution. A $2M holder prepping a trade via the agent could still be front-run at the routing layer. **Mitigation path:** Use a private RPC (e.g., Flashbots Protect, MEV Blocker) to submit the final transaction, bypassing the public mempool. The Uniswap API call for quote/routing still leaks intent to Uniswap's servers, but the on-chain execution would be shielded from MEV bots. This is not yet implemented — it is a known next step.
 
 4. **LLM statistical analysis is not financial advice.** The Python code the AI writes computes real metrics from real data, but the interpretation and recommendations come from a language model. Use at your own risk.
 
 5. **Token prices use CoinGecko free tier.** Rate limits apply. Falls back to hardcoded prices if CoinGecko is unavailable.
 
-6. **Python sandbox is best-effort, not OS-level.** The sandbox strips env vars and blocks dangerous patterns via regex, but does not use containers or seccomp. For production deployments, run the agent inside a TEE (EigenCompute) or Docker with `--read-only` and no volume mounts to the project directory.
+6. **Python sandbox is best-effort, not OS-level.** The regex pattern blocking is bypassable by obfuscation (e.g., `getattr(os, 'environ')`). The real protection is the stripped environment (no secrets available) and, in production, the EigenCompute TEE enclave. The regex is a speed bump, not a wall.
+
+7. **The validation trade cap is a UX trade-off.** The default 10% max trade per recommendation can frustrate users rebalancing quickly. This is configurable: set `MAX_TRADE_PERCENT` in `.env` (e.g., `MAX_TRADE_PERCENT=25`). The ScopedDelegation contract provides the hard ceiling regardless of what the TypeScript layer allows.
 
 ---
 

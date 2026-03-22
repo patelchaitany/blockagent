@@ -22,6 +22,9 @@ export const config = {
     baseMainnet: process.env.BASE_MAINNET_RPC_URL || "https://mainnet.base.org",
     statusSepolia: process.env.STATUS_RPC_URL || "https://public.sepolia.status.im",
   },
+  safety: {
+    maxTradePercent: parseInt(process.env.MAX_TRADE_PERCENT || "10"),
+  },
   server: {
     port: parseInt(process.env.PORT || "3000"),
   },

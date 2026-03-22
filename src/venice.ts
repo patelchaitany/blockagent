@@ -292,13 +292,14 @@ function validateAnalysis(
         rec = { ...rec, percentage: Math.max(0, Math.min(100, isNaN(pct) ? 0 : pct)) };
       }
 
-      if (pct > 10 && (action === "buy" || action === "sell")) {
+      const maxPct = config.safety?.maxTradePercent ?? 10;
+      if (pct > maxPct && (action === "buy" || action === "sell")) {
         warnings.push({
           field: `recommendations[${i}].percentage`,
-          issue: `${action.toUpperCase()} ${pct}% exceeds 10% safety limit, capped at 10%`,
+          issue: `${action.toUpperCase()} ${pct}% exceeds ${maxPct}% safety limit, capped at ${maxPct}%`,
           corrected: true,
         });
-        rec = { ...rec, percentage: 10 };
+        rec = { ...rec, percentage: maxPct };
       }
 
       return rec;
