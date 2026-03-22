@@ -21,6 +21,36 @@ const BLOCKED_PATTERNS = [
   /UNISWAP_API_KEY/,
 ];
 
+const SANDBOX_PREAMBLE = `
+import sys as _sys
+
+class _BlockImports:
+    _BLOCKED = frozenset({
+        'os', 'subprocess', 'shutil', 'socket', 'http', 'urllib',
+        'requests', 'importlib', 'ctypes', 'pathlib', 'io',
+        'signal', 'multiprocessing', 'threading', 'asyncio',
+        'webbrowser', 'ftplib', 'smtplib', 'xmlrpc',
+    })
+    def find_module(self, name, path=None):
+        if name.split('.')[0] in self._BLOCKED:
+            return self
+        return None
+    def load_module(self, name):
+        raise ImportError(f"Module '{name}' is blocked in sandbox")
+
+_sys.meta_path.insert(0, _BlockImports())
+
+del _sys.modules['os']  # remove os if already imported by site.py
+import builtins as _builtins
+_orig_import = _builtins.__import__
+def _safe_import(name, *args, **kwargs):
+    if name.split('.')[0] in _BlockImports._BLOCKED:
+        raise ImportError(f"Module '{name}' is blocked in sandbox")
+    return _orig_import(name, *args, **kwargs)
+_builtins.__import__ = _safe_import
+del _builtins, _orig_import, _safe_import, _BlockImports, _sys
+`;
+
 export interface ExecutionResult {
   stdout: string;
   stderr: string;
@@ -50,8 +80,10 @@ export async function executePython(code: string): Promise<ExecutionResult> {
     PYTHONDONTWRITEBYTECODE: "1",
   };
 
+  const sandboxedCode = SANDBOX_PREAMBLE + code;
+
   return new Promise((resolve) => {
-    const proc = spawn("python3", ["-u", "-c", code], {
+    const proc = spawn("python3", ["-u", "-c", sandboxedCode], {
       timeout: TIMEOUT_MS,
       env: sandboxEnv,
       cwd: sandboxDir,

@@ -9,22 +9,7 @@ import {
 import { privateKeyToAccount } from "viem/accounts";
 import { baseSepolia, base } from "viem/chains";
 import { config } from "./config.js";
-
-interface QuoteResponse {
-  quote: {
-    methodParameters?: {
-      calldata: string;
-      value: string;
-      to: string;
-    };
-    quote: string;
-    quoteDecimals: string;
-    quoteGasAdjusted: string;
-    gasUseEstimate: string;
-    route: unknown[];
-  };
-  routing: string;
-}
+import { getOnChainQuote, buildSwapCalldata, getRouterAddress } from "./swap-local.js";
 
 interface SwapResult {
   success: boolean;
@@ -37,131 +22,104 @@ interface SwapResult {
   };
 }
 
-export async function getSwapQuote(params: {
-  tokenIn: Address;
-  tokenOut: Address;
-  amount: string;
-  tokenInDecimals: number;
-  chainId?: number;
-  slippageTolerance?: number;
-}): Promise<QuoteResponse | null> {
-  const {
-    tokenIn,
-    tokenOut,
-    amount,
-    tokenInDecimals,
-    chainId = baseSepolia.id,
-    slippageTolerance = 50,
-  } = params;
-
-  const amountRaw = parseUnits(amount, tokenInDecimals).toString();
-
-  const account = privateKeyToAccount(config.wallet.privateKey);
-
-  const body = {
-    tokenInChainId: chainId,
-    tokenOutChainId: chainId,
-    tokenIn,
-    tokenOut,
-    amount: amountRaw,
-    type: "EXACT_INPUT",
-    slippageTolerance,
-    configs: [
-      {
-        routingType: "CLASSIC",
-        protocols: ["V3", "V2"],
-        recipient: account.address,
-        enableUniversalRouter: true,
-      },
-    ],
-  };
-
-  try {
-    const response = await fetch(`${config.uniswap.baseUrl}/v2/quote`, {
-      method: "POST",
-      headers: {
-        "x-api-key": config.uniswap.apiKey,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error(`Uniswap quote error ${response.status}: ${errorText}`);
-      return null;
-    }
-
-    return (await response.json()) as QuoteResponse;
-  } catch (error) {
-    console.error("Uniswap quote request failed:", error);
-    return null;
-  }
-}
-
 export async function executeSwap(params: {
   tokenIn: Address;
   tokenOut: Address;
   amount: string;
   tokenInDecimals: number;
+  tokenOutDecimals?: number;
   chainId?: number;
   network?: "sepolia" | "mainnet";
+  recipient?: Address;
+  fee?: number;
+  slippageBps?: number;
 }): Promise<SwapResult> {
-  const { network = "sepolia", chainId = baseSepolia.id } = params;
+  const {
+    tokenIn,
+    tokenOut,
+    amount,
+    tokenInDecimals,
+    tokenOutDecimals = 6,
+    network = "sepolia",
+    fee = 3000,
+    slippageBps = 50,
+  } = params;
 
-  const quoteResponse = await getSwapQuote({ ...params, chainId });
+  const amountInWei = parseUnits(amount, tokenInDecimals);
 
-  if (!quoteResponse) {
-    return { success: false, error: "Failed to get quote from Uniswap" };
-  }
-
-  const methodParams = quoteResponse.quote.methodParameters;
-  if (!methodParams) {
-    return {
-      success: false,
-      error: "Quote returned no method parameters (simulation only?)",
-      quote: {
-        amountOut: quoteResponse.quote.quoteDecimals || quoteResponse.quote.quote,
-        gasEstimate: quoteResponse.quote.gasUseEstimate,
-        routing: quoteResponse.routing,
-      },
-    };
+  if (config.wallet.privateKey === "0x") {
+    return { success: false, error: "No wallet configured (WALLET_PRIVATE_KEY not set)" };
   }
 
   const account = privateKeyToAccount(config.wallet.privateKey);
   const chain = network === "sepolia" ? baseSepolia : base;
-  const rpcUrl =
-    network === "sepolia" ? config.rpc.baseSepolia : config.rpc.baseMainnet;
+
+  const usePrivateRpc = network === "mainnet" && config.rpc.privateMainnet;
+  const readRpcUrl = network === "sepolia" ? config.rpc.baseSepolia : config.rpc.baseMainnet;
+  const writeRpcUrl = usePrivateRpc ? config.rpc.privateMainnet : readRpcUrl;
+
+  if (usePrivateRpc) {
+    console.log("[rpc] Swap submission via private RPC (MEV-shielded)");
+  }
+
+  console.log("[swap] Using local calldata builder (no centralized API call)");
+
+  const onChainQuote = await getOnChainQuote({
+    tokenIn,
+    tokenOut,
+    amountIn: amountInWei,
+    fee,
+    network,
+  });
+
+  if (!onChainQuote) {
+    return { success: false, error: "Failed to read on-chain pool state. Pool may not exist for this pair/fee." };
+  }
+
+  if (onChainQuote.priceImpactWarning) {
+    console.warn("[swap] WARNING: Low liquidity — potential high price impact");
+  }
+
+  const recipient = params.recipient || account.address;
+
+  const swap = buildSwapCalldata({
+    tokenIn,
+    tokenOut,
+    amountIn: amountInWei,
+    fee,
+    recipient,
+    estimatedAmountOut: onChainQuote.estimatedAmountOut,
+    slippageBps,
+    network,
+  });
 
   const walletClient = createWalletClient({
     account,
     chain,
-    transport: http(rpcUrl),
+    transport: http(writeRpcUrl),
   });
 
   const publicClient = createPublicClient({
     chain,
-    transport: http(rpcUrl),
+    transport: http(readRpcUrl),
   });
 
   try {
     const txHash = await walletClient.sendTransaction({
-      to: methodParams.to as Address,
-      data: methodParams.calldata as Hex,
-      value: BigInt(methodParams.value || "0"),
+      to: swap.to,
+      data: swap.data,
+      value: swap.value,
     });
 
-    const receipt = await publicClient.waitForTransactionReceipt({
-      hash: txHash,
-    });
+    const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
 
     return {
       success: receipt.status === "success",
       txHash,
       quote: {
-        amountOut: quoteResponse.quote.quoteDecimals || quoteResponse.quote.quote,
-        gasEstimate: quoteResponse.quote.gasUseEstimate,
-        routing: quoteResponse.routing,
+        amountOut: swap.estimatedAmountOut.toString(),
+        gasEstimate: receipt.gasUsed.toString(),
+        routing: "LOCAL (on-chain pool read, no API)",
       },
     };
   } catch (error) {
@@ -174,9 +132,11 @@ export function getExplorerUrl(
   txHash: string,
   network: "sepolia" | "mainnet" = "sepolia"
 ): string {
-  const base =
+  const explorerBase =
     network === "sepolia"
       ? "https://sepolia.basescan.org"
       : "https://basescan.org";
-  return `${base}/tx/${txHash}`;
+  return `${explorerBase}/tx/${txHash}`;
 }
+
+export { getOnChainQuote, buildSwapCalldata, getRouterAddress };

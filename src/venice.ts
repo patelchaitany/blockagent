@@ -146,12 +146,28 @@ const SYSTEM_PROMPT = `You are an advanced private DeFi portfolio analyst with a
 Your workflow:
 1. Review the portfolio data provided by the user.
 2. Use fetch_market_history to get historical price data for 1-2 key tokens at a time (e.g. ETH first, then one other). Do NOT fetch all tokens at once.
-3. Use execute_python to write and run Python code that performs statistical analysis on the fetched data. pandas and numpy are available. Embed the CSV data as a string literal inside your Python code. Examples of what to compute:
-   - Moving averages (7-day, 14-day) and trend direction
-   - Price volatility (standard deviation of daily returns)
-   - Daily returns distribution
-   - Support/resistance levels
+3. Use execute_python to write and run Python code that performs RIGOROUS statistical analysis. pandas and numpy are available. Embed the CSV data as a string literal inside your Python code.
+
+REQUIRED STATISTICAL ANALYSIS (you MUST compute these):
+- Daily returns and annualized volatility (σ)
+- 7-day and 14-day moving averages with crossover signal (bullish/bearish)
+- Sharpe ratio (assume risk-free rate = 4.5% annualized)
+- Maximum drawdown over the period
+- Current price vs. moving average deviation (% above/below)
+- If multiple tokens: correlation matrix between daily returns
+
+FORMAT YOUR PYTHON OUTPUT AS A CLEAR SUMMARY TABLE, for example:
+  print("=== ETH Statistical Summary ===")
+  print(f"14d Volatility (annualized): {vol:.1f}%")
+  print(f"Sharpe Ratio: {sharpe:.2f}")
+  print(f"Max Drawdown: {mdd:.1f}%")
+  print(f"7d MA: {ma7:.2f} | 14d MA: {ma14:.2f}")
+  print(f"Current vs 14d MA: {deviation:+.1f}%")
+  print(f"Trend Signal: BULLISH/BEARISH based on 7d MA vs 14d MA")
+
 4. Based on the statistical results, produce your final analysis using submit_analysis.
+   - In the "statisticalFindings" field, include ALL computed metrics with specific numbers.
+   - Every recommendation MUST cite the statistical metric that supports it.
 
 CRITICAL RULES:
 - Fetch price history for at most 2 tokens per tool call. Use days=14 to keep data compact.
@@ -159,7 +175,8 @@ CRITICAL RULES:
 - You MUST NOT recommend executing any trades on-chain. All recommendations are advisory only.
 - When writing Python code, always print() results to stdout so you can read them.
 - Keep Python code concise. Embed small CSV data inline as a multi-line string.
-- Be specific with numbers in your analysis. Base recommendations on the statistical evidence you computed.`;
+- Be specific with numbers in your analysis. Base recommendations on the statistical evidence you computed.
+- Do NOT make recommendations without computing the metrics first. "Buy ETH" without statistical backing is useless.`;
 
 const MAX_ITERATIONS = 10;
 
@@ -242,6 +259,12 @@ export interface ValidationWarning {
   corrected: boolean;
 }
 
+export interface ToolTrace {
+  tool: string;
+  input: string;
+  output: string;
+}
+
 export interface AgenticAnalysisResult {
   analysis: string;
   parsed: Record<string, unknown> | null;
@@ -250,6 +273,7 @@ export interface AgenticAnalysisResult {
   toolCallCount: number;
   pythonExecutions: number;
   validationWarnings: ValidationWarning[];
+  toolTrace: ToolTrace[];
 }
 
 function validateAnalysis(
@@ -336,6 +360,7 @@ export async function analyzePortfolio(
   let toolCallCount = 0;
   let pythonExecutions = 0;
   let finalAnalysis: Record<string, unknown> | null = null;
+  const toolTrace: ToolTrace[] = [];
 
   for (let i = 0; i < MAX_ITERATIONS; i++) {
     console.log(`[agent] Iteration ${i + 1}/${MAX_ITERATIONS}`);
@@ -363,6 +388,14 @@ export async function analyzePortfolio(
         const result = await handleToolCall(tc);
 
         if (tc.function.name === "execute_python") pythonExecutions++;
+
+        toolTrace.push({
+          tool: tc.function.name,
+          input: tc.function.name === "execute_python"
+            ? `(${String(JSON.parse(tc.function.arguments).code ?? "").split("\n").length} lines of Python)`
+            : tc.function.arguments,
+          output: result.slice(0, 2000),
+        });
 
         if (tc.function.name === "submit_analysis") {
           try {
@@ -428,5 +461,6 @@ export async function analyzePortfolio(
     toolCallCount,
     pythonExecutions,
     validationWarnings,
+    toolTrace,
   };
 }

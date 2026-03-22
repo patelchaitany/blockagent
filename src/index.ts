@@ -1,4 +1,6 @@
 import { createServer, type IncomingMessage, type ServerResponse } from "http";
+import { readFileSync } from "fs";
+import { join } from "path";
 import { type Address } from "viem";
 import { config, validateConfig } from "./config.js";
 
@@ -92,6 +94,23 @@ function buildDemoResponse(wallet: string, network: string) {
         model: "llama-3.3-70b-versatile",
         toolCallCount: 4,
         pythonExecutions: 1,
+        toolTrace: [
+          {
+            tool: "fetch_market_history",
+            input: '{"symbol":"ETH","days":14}',
+            output: "date,price\n2026-03-08,2089.45\n2026-03-09,2102.31\n...",
+          },
+          {
+            tool: "execute_python",
+            input: "(18 lines of Python)",
+            output: "=== ETH Statistical Summary ===\n14d Volatility (annualized): 48.2%\nSharpe Ratio: 1.42\nMax Drawdown: -4.8%\n7d MA: $2,118.42 | 14d MA: $2,095.67\nCurrent vs 14d MA: +2.7%\nTrend Signal: BULLISH (7d MA > 14d MA)",
+          },
+          {
+            tool: "submit_analysis",
+            input: "(structured JSON)",
+            output: "(final report)",
+          },
+        ],
       },
       timestamp: Date.now(),
       agentVersion: "3.0.0",
@@ -145,6 +164,29 @@ const server = createServer(async (req, res) => {
         validation: "Deterministic safety layer: riskScore [1-10], max 10% per trade, action validation.",
       },
     });
+    return;
+  }
+
+  if (
+    (url.pathname === "/agent.json" || url.pathname === "/.well-known/agent.json") &&
+    req.method === "GET"
+  ) {
+    try {
+      const agentJson = readFileSync(join(process.cwd(), "agent.json"), "utf-8");
+      sendJson(res, 200, JSON.parse(agentJson));
+    } catch {
+      sendJson(res, 500, { error: "agent.json not found" });
+    }
+    return;
+  }
+
+  if (url.pathname === "/agent_log.json" && req.method === "GET") {
+    try {
+      const logData = readFileSync(join(process.cwd(), "agent_log.json"), "utf-8");
+      sendJson(res, 200, JSON.parse(logData));
+    } catch {
+      sendJson(res, 200, { runs: [], note: "No analysis runs logged yet" });
+    }
     return;
   }
 

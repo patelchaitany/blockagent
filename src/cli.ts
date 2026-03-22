@@ -47,6 +47,19 @@ try {
     delegationContract: delegationContract as Address | undefined,
   });
 
+  const pythonOutputs = result.analysis.toolTrace
+    .filter((t) => t.tool === "execute_python" && t.output && !t.output.startsWith("Blocked:"))
+    .map((t) => t.output);
+
+  if (pythonOutputs.length > 0) {
+    console.log("\n" + "=".repeat(60));
+    console.log("STATISTICAL ANALYSIS (Python / pandas / numpy)");
+    console.log("=".repeat(60));
+    for (const out of pythonOutputs) {
+      console.log(out);
+    }
+  }
+
   console.log("\n" + "=".repeat(60));
   console.log("ANALYSIS RESULT");
   console.log("=".repeat(60));
@@ -55,12 +68,14 @@ try {
     const parsed = result.analysis.parsed;
     console.log(`\nRisk Score: ${parsed["riskScore"] ?? "N/A"}/10`);
     console.log(`\nSummary: ${parsed["summary"] ?? "See full analysis"}`);
-    console.log(`\nRisk Assessment: ${parsed["riskAssessment"] ?? "N/A"}`);
 
     const stats = parsed["statisticalFindings"];
     if (stats) {
-      console.log(`\nStatistical Findings: ${stats}`);
+      console.log("\n--- Statistical Findings ---");
+      console.log(String(stats));
     }
+
+    console.log(`\nRisk Assessment: ${parsed["riskAssessment"] ?? "N/A"}`);
 
     const recs =
       (parsed["recommendations"] as Array<Record<string, unknown>>) || [];
@@ -103,7 +118,8 @@ try {
     }
   }
 
-  console.log(`\nTokens used: ${result.analysis.tokensUsed}`);
+  console.log("\n--- Agent Metadata ---");
+  console.log(`Tokens used: ${result.analysis.tokensUsed}`);
   console.log(`Model: ${result.analysis.model}`);
   console.log(`Tool calls: ${result.analysis.toolCallCount}`);
   console.log(`Python executions: ${result.analysis.pythonExecutions}`);

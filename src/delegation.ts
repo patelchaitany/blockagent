@@ -94,12 +94,22 @@ export interface DelegationState {
 
 function getClients(network: "sepolia" | "mainnet") {
   const chain = network === "sepolia" ? baseSepolia : base;
-  const rpcUrl =
+  const readRpcUrl =
     network === "sepolia" ? config.rpc.baseSepolia : config.rpc.baseMainnet;
+
+  const usePrivateRpc =
+    network === "mainnet" && config.rpc.privateMainnet;
+  const writeRpcUrl = usePrivateRpc
+    ? config.rpc.privateMainnet
+    : readRpcUrl;
+
+  if (usePrivateRpc) {
+    console.log("[rpc] Submitting via private RPC (MEV-shielded)");
+  }
 
   const publicClient = createPublicClient({
     chain,
-    transport: http(rpcUrl),
+    transport: http(readRpcUrl),
   });
 
   let walletClient = null;
@@ -108,7 +118,7 @@ function getClients(network: "sepolia" | "mainnet") {
     walletClient = createWalletClient({
       account,
       chain,
-      transport: http(rpcUrl),
+      transport: http(writeRpcUrl),
     });
   }
 

@@ -51,7 +51,9 @@
     "Deterministic validation layer: riskScore [1-10], percentage [0-100], max 10% per trade",
     "Delegated execution enforced on-chain: per-tx cap, daily limit, token whitelist, expiry, instant revocation",
     "Agent session key has zero value — all authority lives in the ScopedDelegation contract",
-    "Python code execution sandboxed with 30s timeout and output limits",
+    "Python sandbox: import hook + stripped env + regex fast-reject (3-layer defense)",
+    "Swap calldata built locally — no centralized API quote call for on-chain execution",
+    "MEV protection via PRIVATE_RPC_URL (Flashbots Protect / MEV Blocker)",
     "All actions logged to agent_log.json for auditability"
   ],
   "privacyArchitecture": {
@@ -60,7 +62,8 @@
     "dataFlow": "Onchain data (public) → Venice analysis (private, ephemeral) → User receives result",
     "limitations": [
       "CoinGecko price history fetches reveal which tokens are queried (not which wallet)",
-      "If delegated execution is enabled, Uniswap routing API sees trade intent",
+      "Swap calldata built locally from on-chain pool state — no centralized API quote leak",
+      "On-chain execution MEV-shielded via PRIVATE_RPC_URL when configured",
       "Inference is private but the portfolio data read from chain is public"
     ]
   },

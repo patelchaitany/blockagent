@@ -20,6 +20,7 @@ export const config = {
   rpc: {
     baseSepolia: process.env.BASE_RPC_URL || "https://sepolia.base.org",
     baseMainnet: process.env.BASE_MAINNET_RPC_URL || "https://mainnet.base.org",
+    privateMainnet: process.env.PRIVATE_RPC_URL || "",
     statusSepolia: process.env.STATUS_RPC_URL || "https://public.sepolia.status.im",
   },
   safety: {

@@ -9,7 +9,8 @@
     "start": "node dist/index.js",
     "agent": "tsx src/agent.ts",
     "analyze": "tsx src/cli.ts",
-    "deploy:status": "tsx src/deploy-status.ts"
+    "deploy:status": "tsx src/deploy-status.ts",
+    "deploy:delegation": "tsx src/deploy-delegation.ts"
   },
   "keywords": ["defi", "ai-agent", "venice", "uniswap", "erc-8004", "x402"],
   "author": "",

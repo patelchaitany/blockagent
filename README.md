@@ -13,7 +13,7 @@ A second problem: when AI agents *can* execute trades, they hold raw private key
 BlockAgent separates intelligence from authority:
 
 - **Private intelligence:** Venice AI analyzes your portfolio with zero data retention. Your positions are never stored, logged, or used for training.
-- **Statistical grounding:** The AI writes and executes Python code (pandas/numpy) to compute moving averages, volatility, and trends from live CoinGecko data — not guessing from training data.
+- **Statistical grounding:** The AI writes and executes Python code (pandas/numpy) to compute volatility, Sharpe ratios, moving average crossovers, maximum drawdowns, and correlation matrices from live CoinGecko data — every recommendation cites the metric that supports it.
 - **Safe execution:** If trade execution is enabled, it goes through a `ScopedDelegation` smart contract (inspired by ERC-7715). The agent gets a session key with zero standalone value. All authority is enforced on-chain: per-transaction caps, daily limits, token whitelists, expiry, instant revocation.
 
 ---
@@ -99,7 +99,7 @@ The agent's session key has zero value on its own. If compromised, the attacker 
 | Flaw | Risk | Mitigation |
 |------|------|-----------|
 | **Private key in .env** | Wallet drain on compromise | No private key required for analysis. Delegated mode uses a session key with zero standalone value — all authority enforced by ScopedDelegation contract |
-| **Uniswap API leaks intent** | Front-running, MEV extraction | Analysis mode never calls Uniswap. If delegated execution is enabled, routing via Uniswap API does expose intent — this is documented as a known limitation |
+| **Uniswap API leaks intent** | Front-running, MEV extraction | Swap calldata built locally from on-chain pool reads — no centralized API quote call. On-chain submission MEV-shielded via `PRIVATE_RPC_URL` (Flashbots Protect / MEV Blocker) |
 | **LLM hallucination** | Bad trade, malformed JSON | Deterministic `validateAnalysis()` layer: clamps riskScore to [1-10], caps trade percentage at 10%, validates action types. On-chain contract enforces spending limits as a second barrier |
 | **x402 self-payment** | Confusing trust model | x402 is for agent-to-agent commerce only. When BlockAgent runs as a public service, other agents pay per-request. Users running locally use the free CLI or `/analyze` endpoint |
 
@@ -132,14 +132,17 @@ Two independent safety layers with user-configurable limits at every level. The 
 
 ### Python Execution Sandbox
 
-The LLM writes Python code for statistical analysis. That code runs in a sandboxed subprocess:
+The LLM writes Python code for statistical analysis. Three layers prevent that code from accessing secrets:
 
-- **Stripped environment:** The subprocess gets only `PATH`, `HOME=/tmp`, and Python encoding vars. No access to `WALLET_PRIVATE_KEY`, `VENICE_API_KEY`, or any `.env` variables.
-- **Working directory:** Isolated `/tmp` directory, not the project root.
-- **Pattern blocking:** Code containing `os.environ`, `subprocess`, `open('...')`, `__import__`, or references to secret variable names is rejected before execution.
-- **Timeout:** 30 seconds max, output capped at 50KB.
+1. **Python import hook (inner layer):** A `sys.meta_path` hook blocks `import os`, `import subprocess`, `import socket`, `import http`, and 14 other dangerous modules at the Python interpreter level. Also patches `builtins.__import__` to catch `__import__('os')`. This runs inside Python's import machinery and cannot be bypassed by `getattr` or string concatenation on module names.
 
-**Honest assessment:** The pattern blocking is regex-based and bypassable by a sufficiently clever obfuscation (e.g., `getattr`, string concatenation). It catches accidental leakage and naive attacks, not a determined adversary. The real protection comes from the stripped environment — even if the regex is bypassed, there are no secrets in the subprocess's env vars to read. For production deployments, the EigenCompute TEE is the primary shield: the Python subprocess runs inside the enclave where the host operator cannot inspect or modify the environment.
+2. **Stripped environment (middle layer):** The subprocess gets only `PATH`, `HOME=/tmp`, and encoding vars. Even if the import hook is somehow bypassed, there are no secrets in the process environment to read. Working directory is an isolated `/tmp` subdirectory.
+
+3. **Regex fast-reject (outer layer):** Source text is scanned for `os.environ`, `subprocess`, `open('...')`, `.env`, and secret variable names before the code reaches Python at all. This is a speed bump — bypassable by obfuscation — but catches the obvious cases cheaply.
+
+**Timeout:** 30 seconds max, output capped at 50KB.
+
+**Honest assessment:** Layers 1 and 2 are solid against realistic attacks. The import hook blocks the actual Python import machinery, not just the text. The stripped env means there's nothing to steal even if all code-level defenses fail. For production deployments where the host operator is untrusted, the EigenCompute TEE is the primary shield: the subprocess runs inside the enclave where the host cannot tamper with any layer.
 
 ### Why EigenCompute (TEE) Still Matters
 
@@ -176,13 +179,13 @@ This section exists because honesty matters more than marketing.
 
 2. **CoinGecko queries are not private.** When the agent fetches price history, CoinGecko sees which tokens are queried (but not which wallet is being analyzed).
 
-3. **Uniswap routing exposes trade intent.** If delegated execution is enabled, the Uniswap API receives the swap parameters before execution. This is the Achilles' heel — private inference does not mean private execution. A $2M holder prepping a trade via the agent could still be front-run at the routing layer. **Mitigation path:** Use a private RPC (e.g., Flashbots Protect, MEV Blocker) to submit the final transaction, bypassing the public mempool. The Uniswap API call for quote/routing still leaks intent to Uniswap's servers, but the on-chain execution would be shielded from MEV bots. This is not yet implemented — it is a known next step.
+3. **Swap routing is now fully local.** Swap calldata is built locally by reading on-chain pool state (Uniswap V3 `slot0`) and encoding `exactInputSingle` with viem — no centralized Uniswap API quote call. Combined with `PRIVATE_RPC_URL` (Flashbots Protect / MEV Blocker), both the routing and on-chain submission are private. The only remaining leak is the on-chain transaction itself, which is inherent to any public blockchain execution.
 
 4. **LLM statistical analysis is not financial advice.** The Python code the AI writes computes real metrics from real data, but the interpretation and recommendations come from a language model. Use at your own risk.
 
 5. **Token prices use CoinGecko free tier.** Rate limits apply. Falls back to hardcoded prices if CoinGecko is unavailable.
 
-6. **Python sandbox is best-effort, not OS-level.** The regex pattern blocking is bypassable by obfuscation (e.g., `getattr(os, 'environ')`). The real protection is the stripped environment (no secrets available) and, in production, the EigenCompute TEE enclave. The regex is a speed bump, not a wall.
+6. **Python sandbox is defense-in-depth, not OS-level isolation.** Three layers protect the sandbox: a Python import hook that blocks dangerous modules at the interpreter level, a stripped environment with no secrets, and regex fast-reject for obvious patterns. The import hook and stripped env are robust against realistic attacks. For full isolation against a compromised host, the EigenCompute TEE provides OS-level protection.
 
 7. **The validation trade cap is a UX trade-off.** The default 10% max trade per recommendation can frustrate users rebalancing quickly. This is configurable: set `MAX_TRADE_PERCENT` in `.env` (e.g., `MAX_TRADE_PERCENT=25`). The ScopedDelegation contract provides the hard ceiling regardless of what the TypeScript layer allows.
 
@@ -236,11 +239,35 @@ curl -X POST http://localhost:3000/analyze \
 
 Other AI agents can discover and pay BlockAgent for analysis. End users use the free endpoint or CLI.
 
+**GET /.well-known/agent.json** — ERC-8004 agent identity card
+
+Returns the agent's on-chain identity, capabilities, safety guardrails, and supported tools. Used by other agents for discovery and trust verification.
+
+**GET /agent_log.json** — Structured execution log
+
+Every analysis run is logged with tool calls, decisions, and outcomes for full auditability.
+
 ### Enable Delegated Execution (Optional)
 
-1. Deploy `ScopedDelegation.sol` to Base Sepolia with your limits
-2. Set `DELEGATION_CONTRACT`, `WALLET_PRIVATE_KEY` (agent session key), and `UNISWAP_API_KEY` in `.env`
-3. Run analysis — the agent will execute validated trades through the contract
+One command deploys the ScopedDelegation contract with safe defaults ($100/tx max, $500/day, 7-day expiry):
+
+```bash
+npm run deploy:delegation -- --network sepolia
+```
+
+Customize limits:
+
+```bash
+npm run deploy:delegation -- \
+  --max-per-tx 50    \
+  --daily-limit 200  \
+  --expiry 3d        \
+  --network sepolia
+```
+
+The script prints the `DELEGATION_CONTRACT=0x...` line to paste into `.env`. No Hardhat or Foundry needed — the compiled bytecode is embedded in the CLI.
+
+For MEV protection on mainnet, add `PRIVATE_RPC_URL=https://rpc.flashbots.net` to `.env`. This routes transaction submission through a private mempool, shielding on-chain execution from front-runners.
 
 ### Live Demo
 
