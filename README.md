@@ -311,7 +311,8 @@ curl https://blockagent-production.up.railway.app/health
 - Gasless TX: [0x0345437a...](https://sepoliascan.status.network/tx/0x0345437abf88bcced93d2b888cfadec6576d0b35d17559d1a24c1783b8d89e1d)
 
 **EigenCompute TEE Deployment (Sepolia):**
-- On-chain TX: [0x40e83d1d...](https://sepolia.etherscan.io/tx/0x40e83d1d67459253bb921be989e8e9c383dc60c73bf3bd44e7b23ba9b247f86b)
+- Deploy TX: [0x40e83d1d...](https://sepolia.etherscan.io/tx/0x40e83d1d67459253bb921be989e8e9c383dc60c73bf3bd44e7b23ba9b247f86b)
+- Upgrade TX: [0x8e017902...](https://sepolia.etherscan.io/tx/0x8e01790228cd42b57dd241809ce92bd1f241838402cc1de6fdbd8d73dcca7a21)
 - Verifiable Build Dashboard: https://verify-sepolia.eigencloud.xyz/app/0x77f35954B70b8CcBd40fbBe669B21083fD281A72
 
 ### Docker

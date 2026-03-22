@@ -75,7 +75,8 @@
     "instance": "g1-micro-1v",
     "verifiableBuild": true,
     "dashboard": "https://verify-sepolia.eigencloud.xyz/app/0x77f35954B70b8CcBd40fbBe669B21083fD281A72",
-    "deployTx": "0x40e83d1d67459253bb921be989e8e9c383dc60c73bf3bd44e7b23ba9b247f86b"
+    "deployTx": "0x40e83d1d67459253bb921be989e8e9c383dc60c73bf3bd44e7b23ba9b247f86b",
+    "upgradeTx": "0x8e01790228cd42b57dd241809ce92bd1f241838402cc1de6fdbd8d73dcca7a21"
   },
   "onChainProofs": {
     "uniswapSwap": {
