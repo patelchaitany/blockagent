@@ -52,7 +52,7 @@
     "Delegated execution enforced on-chain: per-tx cap, daily limit, token whitelist, expiry, instant revocation",
     "Agent session key has zero value — all authority lives in the ScopedDelegation contract",
     "Python sandbox: import hook + stripped env + regex fast-reject (3-layer defense)",
-    "Swap calldata built locally — no centralized API quote call for on-chain execution",
+    "Uniswap V3 integration: API key for token discovery, local calldata from on-chain pool state for privacy-first execution",
     "MEV protection via PRIVATE_RPC_URL (Flashbots Protect / MEV Blocker)",
     "All actions logged to agent_log.json for auditability"
   ],

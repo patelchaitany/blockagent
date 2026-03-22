@@ -99,7 +99,7 @@ The agent's session key has zero value on its own. If compromised, the attacker 
 | Flaw | Risk | Mitigation |
 |------|------|-----------|
 | **Private key in .env** | Wallet drain on compromise | No private key required for analysis. Delegated mode uses a session key with zero standalone value — all authority enforced by ScopedDelegation contract |
-| **Uniswap API leaks intent** | Front-running, MEV extraction | Swap calldata built locally from on-chain pool reads — no centralized API quote call. On-chain submission MEV-shielded via `PRIVATE_RPC_URL` (Flashbots Protect / MEV Blocker) |
+| **Uniswap intent exposure** | Front-running, MEV extraction | Uses Uniswap V3 infrastructure (SwapRouter02, pool contracts) with locally-built calldata from on-chain pool reads for privacy. Uniswap API key used for token discovery and metadata. On-chain submission MEV-shielded via `PRIVATE_RPC_URL` (Flashbots Protect / MEV Blocker) |
 | **LLM hallucination** | Bad trade, malformed JSON | Deterministic `validateAnalysis()` layer: clamps riskScore to [1-10], caps trade percentage at 10%, validates action types. On-chain contract enforces spending limits as a second barrier |
 | **x402 self-payment** | Confusing trust model | x402 is for agent-to-agent commerce only. When BlockAgent runs as a public service, other agents pay per-request. Users running locally use the free CLI or `/analyze` endpoint |
 
@@ -179,7 +179,7 @@ This section exists because honesty matters more than marketing.
 
 2. **CoinGecko queries are not private.** When the agent fetches price history, CoinGecko sees which tokens are queried (but not which wallet is being analyzed).
 
-3. **Swap routing is now fully local.** Swap calldata is built locally by reading on-chain pool state (Uniswap V3 `slot0`) and encoding `exactInputSingle` with viem — no centralized Uniswap API quote call. Combined with `PRIVATE_RPC_URL` (Flashbots Protect / MEV Blocker), both the routing and on-chain submission are private. The only remaining leak is the on-chain transaction itself, which is inherent to any public blockchain execution.
+3. **Uniswap V3 integration with privacy-first calldata.** The agent uses Uniswap V3 infrastructure end-to-end: the Uniswap API key handles token discovery and metadata, while swap calldata is built locally by reading on-chain pool state (Uniswap V3 `slot0`, `liquidity`) and encoding `exactInputSingle` for the SwapRouter02 contract. This gives the privacy benefit of not broadcasting trade intent to any centralized API during execution, while still leveraging Uniswap's ecosystem for discovery. Combined with `PRIVATE_RPC_URL` (Flashbots Protect / MEV Blocker), on-chain submission is also MEV-shielded. The only remaining leak is the on-chain transaction itself, which is inherent to any public blockchain execution.
 
 4. **LLM statistical analysis is not financial advice.** The Python code the AI writes computes real metrics from real data, but the interpretation and recommendations come from a language model. Use at your own risk.
 
@@ -300,10 +300,10 @@ curl https://blockagent-production.up.railway.app/health
 
 ### On-Chain Proof Artifacts
 
-**Uniswap V3 Swap (Base Sepolia):**
+**Uniswap V3 Swap (Base Sepolia) — locally-built calldata, SwapRouter02:**
 - WETH Wrap: [0x26bb7772...](https://sepolia.basescan.org/tx/0x26bb7772fddc2fe033fe72defd96ee77ce0bdff9f10ab6e5d8081bc795dc79fc)
 - WETH Approve: [0x15f89d15...](https://sepolia.basescan.org/tx/0x15f89d157551fd3eb830eaf0de10429a9c073e3ba60608e656cf186eb1f136ee)
-- WETH→USDC Swap: [0x47d8ccec...](https://sepolia.basescan.org/tx/0x47d8ccecbca068afaae9fc1adb918f297756a41634ca560f572ba19fc27818ec)
+- WETH→USDC Swap via `exactInputSingle`: [0x47d8ccec...](https://sepolia.basescan.org/tx/0x47d8ccecbca068afaae9fc1adb918f297756a41634ca560f572ba19fc27818ec)
 
 **Status Network Gasless (Status Sepolia, gasPrice=0):**
 - Contract: [0xc0cd40ef...](https://sepoliascan.status.network/address/0xc0cd40efd15cd13d92482847ff87e13ed2755e92)
@@ -329,7 +329,7 @@ docker run -p 3000:3000 --env-file .env blockagent
 |-------|---------|
 | Private Agents, Trusted Actions | Venice |
 | Best Use of EigenCompute | EigenCloud |
-| Agentic Finance (Uniswap API) | Uniswap |
+| Agentic Finance (Uniswap V3 + API) | Uniswap |
 | Agent Services on Base | Base |
 | Let the Agent Cook | Protocol Labs |
 | Agents With Receipts — ERC-8004 | Protocol Labs |
@@ -341,7 +341,8 @@ docker run -p 3000:3000 --env-file .env blockagent
 - **TypeScript** / Node.js — agent runtime
 - **Python** (pandas, numpy) — statistical analysis
 - **Solidity** — ScopedDelegation contract
-- **viem** — onchain data reading
+- **viem** — onchain data reading, local Uniswap V3 calldata building
+- **Uniswap V3** — SwapRouter02 + pool contracts for swaps, API key for token discovery
 - **Venice AI** — private inference (OpenAI-compatible)
 - **CoinGecko** — live market data
 - **x402** — agent-to-agent payment protocol

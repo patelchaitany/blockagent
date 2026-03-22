@@ -3,5 +3,6 @@ dist/
 .env
 .key
 .env.eigencompute
+CONTEXT.md
 *.log
 agent_log.json
