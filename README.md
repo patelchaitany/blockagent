@@ -271,19 +271,48 @@ For MEV protection on mainnet, add `PRIVATE_RPC_URL=https://rpc.flashbots.net` t
 
 ### Live Demo
 
-The agent is deployed at:
+**EigenCompute TEE (Verifiable Build):**
 
-**https://blockagent-production.up.railway.app**
+The agent runs inside an EigenCompute TEE with a verifiable build from source:
+
+- **App ID:** `0x77f35954B70b8CcBd40fbBe669B21083fD281A72`
+- **IP:** `34.132.186.175`
+- **Dashboard:** https://verify-sepolia.eigencloud.xyz/app/0x77f35954B70b8CcBd40fbBe669B21083fD281A72
+- **Instance:** g1-micro-1v (Shielded VM)
 
 ```bash
-# Health check
-curl https://blockagent-production.up.railway.app/health
+# Health check (TEE)
+curl http://34.132.186.175:3000/health
 
-# Demo analysis (returns sample response showing exact output format)
-curl -X POST https://blockagent-production.up.railway.app/analyze \
+# Demo analysis (TEE)
+curl -X POST http://34.132.186.175:3000/analyze \
   -H "Content-Type: application/json" \
   -d '{"wallet": "0x3c7350E31bfB6bbEc87d7642cBF2AbB7bBDf3d7d", "network": "mainnet"}'
 ```
+
+**Railway (Public Demo):**
+
+- **URL:** https://blockagent-production.up.railway.app
+
+```bash
+curl https://blockagent-production.up.railway.app/health
+```
+
+### On-Chain Proof Artifacts
+
+**Uniswap V3 Swap (Base Sepolia):**
+- WETH Wrap: [0x26bb7772...](https://sepolia.basescan.org/tx/0x26bb7772fddc2fe033fe72defd96ee77ce0bdff9f10ab6e5d8081bc795dc79fc)
+- WETH Approve: [0x15f89d15...](https://sepolia.basescan.org/tx/0x15f89d157551fd3eb830eaf0de10429a9c073e3ba60608e656cf186eb1f136ee)
+- WETH→USDC Swap: [0x47d8ccec...](https://sepolia.basescan.org/tx/0x47d8ccecbca068afaae9fc1adb918f297756a41634ca560f572ba19fc27818ec)
+
+**Status Network Gasless (Status Sepolia, gasPrice=0):**
+- Contract: [0xc0cd40ef...](https://sepoliascan.status.network/address/0xc0cd40efd15cd13d92482847ff87e13ed2755e92)
+- Deploy TX: [0x2ea15baa...](https://sepoliascan.status.network/tx/0x2ea15baa832633abff88c6374bf21e8001bcc007e707d896c0db88cb854d2c9f)
+- Gasless TX: [0x0345437a...](https://sepoliascan.status.network/tx/0x0345437abf88bcced93d2b888cfadec6576d0b35d17559d1a24c1783b8d89e1d)
+
+**EigenCompute TEE Deployment (Sepolia):**
+- On-chain TX: [0x40e83d1d...](https://sepolia.etherscan.io/tx/0x40e83d1d67459253bb921be989e8e9c383dc60c73bf3bd44e7b23ba9b247f86b)
+- Verifiable Build Dashboard: https://verify-sepolia.eigencloud.xyz/app/0x77f35954B70b8CcBd40fbBe669B21083fD281A72
 
 ### Docker
 

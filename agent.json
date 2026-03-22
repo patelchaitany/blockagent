@@ -68,5 +68,27 @@
     ]
   },
   "repo": "https://github.com/patelchaitany/blockagent",
-  "liveDemo": "https://blockagent-production.up.railway.app"
+  "liveDemo": "https://blockagent-production.up.railway.app",
+  "eigenComputeTEE": {
+    "appId": "0x77f35954B70b8CcBd40fbBe669B21083fD281A72",
+    "ip": "34.132.186.175",
+    "instance": "g1-micro-1v",
+    "verifiableBuild": true,
+    "dashboard": "https://verify-sepolia.eigencloud.xyz/app/0x77f35954B70b8CcBd40fbBe669B21083fD281A72",
+    "deployTx": "0x40e83d1d67459253bb921be989e8e9c383dc60c73bf3bd44e7b23ba9b247f86b"
+  },
+  "onChainProofs": {
+    "uniswapSwap": {
+      "chain": "Base Sepolia",
+      "wrapTx": "0x26bb7772fddc2fe033fe72defd96ee77ce0bdff9f10ab6e5d8081bc795dc79fc",
+      "approveTx": "0x15f89d157551fd3eb830eaf0de10429a9c073e3ba60608e656cf186eb1f136ee",
+      "swapTx": "0x47d8ccecbca068afaae9fc1adb918f297756a41634ca560f572ba19fc27818ec"
+    },
+    "statusNetworkGasless": {
+      "chain": "Status Network Sepolia (1660990954)",
+      "contract": "0xc0cd40efd15cd13d92482847ff87e13ed2755e92",
+      "deployTx": "0x2ea15baa832633abff88c6374bf21e8001bcc007e707d896c0db88cb854d2c9f",
+      "gaslessTx": "0x0345437abf88bcced93d2b888cfadec6576d0b35d17559d1a24c1783b8d89e1d"
+    }
+  }
 }
