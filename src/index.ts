@@ -353,7 +353,8 @@ const modeStr = DEMO_MODE
     ? "Delegated (ScopedDelegation)"
     : "Analysis-only (no execution)";
 
-server.listen(config.server.port, () => {
+const HOST = process.env.HOST || "0.0.0.0";
+server.listen(config.server.port, HOST, () => {
   console.log(`
 ╔═══════════════════════════════════════════════════════════╗
 ║        BlockAgent v3.0 — Private DeFi Advisor            ║
