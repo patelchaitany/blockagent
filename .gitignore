@@ -4,5 +4,6 @@ dist/
 .key
 .env.eigencompute
 CONTEXT.md
+SCRIPT.md
 *.log
 agent_log.json

@@ -22,33 +22,24 @@ const BLOCKED_PATTERNS = [
 ];
 
 const SANDBOX_PREAMBLE = `
-import sys as _sys
+import pandas as pd
+import numpy as np
+import math, statistics, json, csv, datetime, collections, itertools, functools, re
 
-class _BlockImports:
-    _BLOCKED = frozenset({
-        'os', 'subprocess', 'shutil', 'socket', 'http', 'urllib',
-        'requests', 'importlib', 'ctypes', 'pathlib', 'io',
-        'signal', 'multiprocessing', 'threading', 'asyncio',
-        'webbrowser', 'ftplib', 'smtplib', 'xmlrpc',
-    })
-    def find_module(self, name, path=None):
-        if name.split('.')[0] in self._BLOCKED:
-            return self
-        return None
-    def load_module(self, name):
-        raise ImportError(f"Module '{name}' is blocked in sandbox")
+import sys as _sys, builtins as _builtins
 
-_sys.meta_path.insert(0, _BlockImports())
+_DENY = frozenset({'subprocess', 'shutil', 'socket', 'http', 'urllib',
+    'requests', 'ctypes', 'webbrowser', 'ftplib', 'smtplib', 'xmlrpc'})
+_ALLOWED = frozenset(k.split('.')[0] for k in _sys.modules.keys()) - _DENY
 
-del _sys.modules['os']  # remove os if already imported by site.py
-import builtins as _builtins
 _orig_import = _builtins.__import__
-def _safe_import(name, *args, **kwargs):
-    if name.split('.')[0] in _BlockImports._BLOCKED:
-        raise ImportError(f"Module '{name}' is blocked in sandbox")
-    return _orig_import(name, *args, **kwargs)
+def _safe_import(name, *args, _a=_ALLOWED, _oi=_orig_import, **kwargs):
+    top = name.split('.')[0]
+    if top in _a:
+        return _oi(name, *args, **kwargs)
+    raise ImportError(f"Module '{name}' is blocked in sandbox")
 _builtins.__import__ = _safe_import
-del _builtins, _orig_import, _safe_import, _BlockImports, _sys
+del _DENY, _ALLOWED, _orig_import, _safe_import, _builtins, _sys
 `;
 
 export interface ExecutionResult {
